@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>34e3c1fb-5601-4885-a3c7-9c51fe870c3f</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>5c4e7f68-6fe7-42f2-b817-b7e8539cf9d5</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>b4bfd082-5506-432d-aa1b-17fbab5154b2</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Shaders">
+      <UniqueIdentifier>b21e9057-1e71-4b67-8b66-3775920b5092</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="Common\DirectXHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\StepTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DeviceResources.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClCompile Include="Common\DeviceResources.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClInclude Include="Common\CameraResources.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClCompile Include="Common\CameraResources.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Filter Include="Content\Textures">
+      <UniqueIdentifier>{934c80e3-045b-436d-acae-19d7032b2d1b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="AppView.cpp" />
+    <ClCompile Include="Content\SpatialInputHandler.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\SpinningCubeRenderer.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordingAudioMain.cpp" />
+    <ClCompile Include="WASAPICapture.cpp" />
+    <ClCompile Include="WASAPIRenderer.cpp" />
+    <ClCompile Include="ToneSampleGenerator.cpp" />
+    <ClCompile Include="MFSampleGenerator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="AppView.h" />
+    <ClInclude Include="Content\SpatialInputHandler.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\SpinningCubeRenderer.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\ShaderStructures.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordingAudioMain.h" />
+    <ClInclude Include="Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="WASAPICapture.h" />
+    <ClInclude Include="DeviceState.h" />
+    <ClInclude Include="PlotData.h" />
+    <ClInclude Include="WASAPIRenderer.h" />
+    <ClInclude Include="ToneSampleGenerator.h" />
+    <ClInclude Include="MFSampleGenerator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Content\VertexShader.hlsl">
+      <Filter>Content\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\GeometryShader.hlsl">
+      <Filter>Content\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\PixelShader.hlsl">
+      <Filter>Content\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\VPRTVertexShader.hlsl">
+      <Filter>Content\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RecordingAudio_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <MeshContentTask Include="Assets\MicMan.fbx">
+      <Filter>Assets</Filter>
+    </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Content\Textures\Lakerem2.jpg">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\phone.jpg">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\phone1.jpg">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\phone2.jpg">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\seq0000.jpg">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\seq00001.jpg">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\seq00002.jpg">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\Lakerem2.jpg.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\phone.jpg.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\phone1.jpg.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\phone2.jpg.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\seq0000.jpg.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\seq00001.jpg.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\seq00002.jpg.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_Lakerem2.jpg.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone.jpg.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone1.jpg.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone2.jpg.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq0000.jpg.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00001.jpg.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00002.jpg.dds">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
