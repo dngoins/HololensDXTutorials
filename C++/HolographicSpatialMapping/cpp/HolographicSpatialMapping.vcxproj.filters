@@ -110,34 +110,10 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\SharedContent\media\smalltile-sdk.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\splash-sdk.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\squaretile-sdk.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\storelogo-sdk.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\tile-sdk.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\windows-sdk.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
-      <Filter>Assets</Filter>
-    </Image>
     <Image Include="matrix_texture.png">
       <Filter>Assets</Filter>
     </Image>
     <Image Include="bitmap1.bmp" />
-    <Image Include="Debug\HolographicSpatialMapping\rainier.jpg">
-      <Filter>Assets</Filter>
-    </Image>
     <Image Include="Content\Textures\matrix_texture.dds">
       <Filter>Content\Textures</Filter>
     </Image>
@@ -155,6 +131,30 @@
     </Image>
     <Image Include="Content\Textures\nuwaupian_holding_fire3.dds">
       <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="microsoft-sdk.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="placeholder-sdk.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="smalltile-sdk.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="splash-sdk.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="squaretile-sdk.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="storelogo-sdk.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="tile-sdk.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="windows-sdk.png">
+      <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

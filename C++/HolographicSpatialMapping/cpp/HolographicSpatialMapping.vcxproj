@@ -156,27 +156,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
-      <Link>Assets\microsoft-sdk.png</Link>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\smalltile-sdk.png">
-      <Link>Assets\smallTile-sdk.png</Link>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\splash-sdk.png">
-      <Link>Assets\splash-sdk.png</Link>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\squaretile-sdk.png">
-      <Link>Assets\squareTile-sdk.png</Link>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\storelogo-sdk.png">
-      <Link>Assets\storeLogo-sdk.png</Link>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\tile-sdk.png">
-      <Link>Assets\tile-sdk.png</Link>
-    </Image>
-    <Image Include="..\..\..\SharedContent\media\windows-sdk.png">
-      <Link>Assets\windows-sdk.png</Link>
-    </Image>
     <Image Include="bitmap1.bmp" />
     <Image Include="Content\Textures\Marble.dds" />
     <Image Include="Content\Textures\matrix_texture.dds" />
@@ -184,8 +163,15 @@
     <Image Include="Content\Textures\nuwaupian_holding_fire2.dds" />
     <Image Include="Content\Textures\nuwaupian_holding_fire3.dds" />
     <Image Include="Content\Textures\stone.dds" />
-    <Image Include="Debug\HolographicSpatialMapping\rainier.jpg" />
     <Image Include="matrix_texture.png" />
+    <Image Include="microsoft-sdk.png" />
+    <Image Include="placeholder-sdk.png" />
+    <Image Include="smalltile-sdk.png" />
+    <Image Include="splash-sdk.png" />
+    <Image Include="squaretile-sdk.png" />
+    <Image Include="storelogo-sdk.png" />
+    <Image Include="tile-sdk.png" />
+    <Image Include="windows-sdk.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
