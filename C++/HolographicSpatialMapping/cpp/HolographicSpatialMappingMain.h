@@ -117,5 +117,9 @@ namespace HolographicSpatialMapping
 
         // Determines the rendering mode.
         bool                                                                m_drawWireframe = true;
+
+		//number to click through different textures
+		UINT mTextureIndex = 0;
+
     };
 }

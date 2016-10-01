@@ -30,10 +30,13 @@ using namespace Windows::ApplicationModel::Resources::Core;
 using namespace Platform;
 
 RealtimeSurfaceMeshRenderer::RealtimeSurfaceMeshRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
-    m_deviceResources(deviceResources), m_textureReady(false)
+    m_deviceResources(deviceResources)
 {
     m_meshCollection.clear();
     CreateDeviceDependentResources();
+
+	for (UINT i = 0; i < NUMBER_OF_TEXTURES; i++)
+		m_textureReady[i] = false;
 };
 
 // Called once per frame, rotates the cube and calculates the model and view matrices.
@@ -154,10 +157,10 @@ void RealtimeSurfaceMeshRenderer::HideInactiveMeshes(IMapView<Guid, SpatialSurfa
 }
 
 // Renders one frame using the vertex, geometry, and pixel shaders.
-void RealtimeSurfaceMeshRenderer::Render(bool isStereo, bool useWireframe)
+void RealtimeSurfaceMeshRenderer::Render(bool isStereo, bool useWireframe, UINT index)
 {
     // Loading is asynchronous. Only draw geometry after it's loaded.
-    if (!m_loadingComplete && !m_textureReady)
+    if (!m_loadingComplete && !m_textureReady[index])
     {
         return;
     }
@@ -216,7 +219,7 @@ void RealtimeSurfaceMeshRenderer::Render(bool isStereo, bool useWireframe)
 	}
 
 	//if(m_colorTexture != NULL)
-	context->PSSetShaderResources(0, 1, m_colorTexture.GetAddressOf());
+	context->PSSetShaderResources(0, 1, m_colorTexture[index].GetAddressOf());
 
 	//if(m_textureSampler != NULL)
 	context->PSSetSamplers(0, 1, m_textureSampler.GetAddressOf());
@@ -261,46 +264,73 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
         loadGSTask = DX::ReadDataAsync(L"ms-appx:///SurfaceGeometryShader.cso");
     }
 
-	// Load a texture from resource
+	// Load a texture from resource	
+	std::wstring textureName[NUMBER_OF_TEXTURES];
 	
-	//auto mainResourceMap = ResourceManager::Current->MainResourceMap;
-	//auto textureResource = mainResourceMap->GetValue(L"PNG/matrix_texture/matrix_texture.png");
-	//auto loadMatrixTexture = create_task(textureResource->GetValueAsFileAsync());
+	textureName[0] = L"Content\\Textures\\matrix_texture.dds";
+	Platform::String ^ pfstrTextureName = ref new String(textureName[0].data());
+	BasicLoader loader0(m_deviceResources->GetD3DDevice());
 
-	/*loadMatrixTexture.then([this](Windows::Storage::StorageFile ^ file)  {
+	auto loadTextureTask0 = loader0.LoadTextureAsync(pfstrTextureName, m_texture[0].GetAddressOf(), m_colorTexture[0].GetAddressOf());
 
-	return file->OpenAsync(Windows::Storage::FileAccessMode::Read);
-
-	}).then([this]( Windows::Storage::Streams::IRandomAccessStream ^ stream) {
-
-	stream->CloneStream();
-
+	loadTextureTask0.then([this]() {
+		m_textureReady[0] = true;
 	});
-	*/
 
-	//std::wstring textureName = L"ms-appx:///matrix_texture.png"; //L"ms-appx:///Content/Textures/matrix_texture.dds"; //L"ms-appx:///matrix_texture.png";
+	textureName[1] = L"Content\\Textures\\marble.dds";
+	Platform::String ^ pfstrTextureName1 = ref new String(textureName[1].data());
+	BasicLoader loader1(m_deviceResources->GetD3DDevice());
+
+	auto loadTextureTask1 = loader1.LoadTextureAsync(pfstrTextureName1, m_texture[1].GetAddressOf(), m_colorTexture[1].GetAddressOf());
+
+	loadTextureTask1.then([this]() {
+		m_textureReady[1] = true;
+	});
 	
-	//task<std::vector<byte>> loadMatrixTexturePSTask = DX::ReadDataAsync(textureName);
-	//
-	//auto createMaxtrixTextureTask = loadMatrixTexturePSTask.then([this](const std::vector<byte>& fileData) {
-		//DX::ThrowIfFailed(DirectX::CreateWICTextureFromMemory((ID3D11Device * )m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), &fileData[0], fileData.size(), nullptr, m_colorTexture.GetAddressOf()));
-	//	m_textureReady = true;
+	 textureName[2] = L"Content\\Textures\\stone.dds";
+	Platform::String ^ pfstrTextureName2 = ref new String(textureName[2].data());
+	BasicLoader loader2(m_deviceResources->GetD3DDevice());
+
+	auto loadTextureTask2 = loader2.LoadTextureAsync(pfstrTextureName2, m_texture[2].GetAddressOf(), m_colorTexture[2].GetAddressOf());
+
+	loadTextureTask2.then([this]() {
+		m_textureReady[2] = true;
+	});
+
+	textureName[3] = L"Content\\Textures\\nuwaupian_holding_fire.dds";
+	Platform::String ^ pfstrTextureName3 = ref new String(textureName[3].data());
+	BasicLoader loader3(m_deviceResources->GetD3DDevice());
+
+	auto loadTextureTask3 = loader3.LoadTextureAsync(pfstrTextureName3, m_texture[3].GetAddressOf(), m_colorTexture[3].GetAddressOf());
+
+	loadTextureTask3.then([this]() {
+		m_textureReady[3] = true;
+	});
+
+
+	//textureName[4] = L"Content\\Textures\\matrix_texture.dds";
+	//Platform::String ^ pfstrTextureName4 = ref new String(textureName[4].data());
+	//BasicLoader loader4(m_deviceResources->GetD3DDevice());
+
+	//auto loadTextureTask4 = loader4.LoadTextureAsync(pfstrTextureName4, m_texture[4].GetAddressOf(), m_colorTexture[4].GetAddressOf());
+
+	//loadTextureTask4.then([this]() {
+	//	m_textureReady[4] = true;
 	//});
 
-	//m_textureReady = createMaxtrixTextureTask.is_done();
+	//
+	//textureName[5] = L"Content\\Textures\\matrix_texture.dds";
+	//Platform::String ^ pfstrTextureName5 = ref new String(textureName[5].data());
+	//BasicLoader loader5(m_deviceResources->GetD3DDevice());
 
-	//std::wstring textureName2 = L"Content\\Textures\\nuwaupian_holding_fire.dds";
-	std::wstring textureName2 = L"Content\\Textures\\matrix_texture.dds";
-	Platform::String ^ pfstrTextureName = ref new String(textureName2.data());
-	BasicLoader loader(m_deviceResources->GetD3DDevice());
+	//auto loadTextureTask5 = loader5.LoadTextureAsync(pfstrTextureName5, m_texture[5].GetAddressOf(), m_colorTexture[5].GetAddressOf());
 
-	auto loadTextureTask = loader.LoadTextureAsync(pfstrTextureName, m_texture.GetAddressOf(), m_colorTexture.GetAddressOf());
+	//loadTextureTask5.then([this]() {
+	//	m_textureReady[5] = true;
+	//});
 
-	loadTextureTask.then([this]() {
-		m_textureReady = true;
-	});
 
-	
+
 	/*	DX::ThrowIfFailed(DirectX::CreateWICTextureFromFile(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), textureName2.c_str(), nullptr, m_colorTexture.GetAddressOf()));
 		m_textureReady = true;
 	*/

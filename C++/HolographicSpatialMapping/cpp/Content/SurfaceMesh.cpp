@@ -318,8 +318,8 @@ void SurfaceMesh::CreateVertexResources(ID3D11Device* device)
 	BYTE * ptrPositions = (BYTE *)positions;
 
 
-	for (UINT i = 0; i < verticesCount; i++)
-	{
+//	for (UINT i = 0; i < verticesCount; i++)
+//	{
 	//	auto fred = (float) *ptrNormals;
 	//	ptrNormals++;
 	//	auto fgreen = (float)*ptrNormals;
@@ -331,16 +331,16 @@ void SurfaceMesh::CreateVertexResources(ID3D11Device* device)
 	//	
 	//	XMFLOAT3 normal = XMFLOAT3(fred, fgreen, fblue);
 
-		auto fX = (float)*ptrPositions;
-		ptrPositions++;
-		auto fY = (float)*ptrPositions;
-		ptrPositions++;
-		auto fZ = (float)*ptrPositions;
-		ptrPositions++;
-		auto fW = (float)*ptrPositions;
-		ptrPositions++;
+		//auto fX = (float)*ptrPositions;
+		//ptrPositions++;
+		//auto fY = (float)*ptrPositions;
+		//ptrPositions++;
+		//auto fZ = (float)*ptrPositions;
+		//ptrPositions++;
+		//auto fW = (float)*ptrPositions;
+		//ptrPositions++;
 	//	
-		XMFLOAT3 position = XMFLOAT3(fX, fY, fZ);
+	//	XMFLOAT3 position = XMFLOAT3(fX, fY, fZ);
 
 	//	XMFLOAT2 texture;
 	//	texture.x = textureCoords.at(i).x;
@@ -348,7 +348,7 @@ void SurfaceMesh::CreateVertexResources(ID3D11Device* device)
 
 	//	vertices.push_back(VertexPositionNormalTexture(XMFLOAT3(position.x, position.y, position.z), XMFLOAT3(normal.x, normal.y, normal.z), XMFLOAT2(texture)));
 
-	}
+//	}
 
 	D3D11_BUFFER_DESC vertexBufferDesc;
 	ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
