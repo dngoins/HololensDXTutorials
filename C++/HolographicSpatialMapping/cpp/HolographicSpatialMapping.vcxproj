@@ -160,8 +160,6 @@
     <Image Include="Content\Textures\Marble.dds" />
     <Image Include="Content\Textures\matrix_texture.dds" />
     <Image Include="Content\Textures\nuwaupian_holding_fire.dds" />
-    <Image Include="Content\Textures\nuwaupian_holding_fire2.dds" />
-    <Image Include="Content\Textures\nuwaupian_holding_fire3.dds" />
     <Image Include="Content\Textures\stone.dds" />
     <Image Include="matrix_texture.png" />
     <Image Include="microsoft-sdk.png" />

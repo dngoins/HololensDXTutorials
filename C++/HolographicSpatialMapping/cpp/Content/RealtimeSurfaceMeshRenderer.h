@@ -20,8 +20,10 @@
 #include <map>
 #include <ppltasks.h>
 
+
 namespace WindowsHolographicCodeSamples
 {
+
     class RealtimeSurfaceMeshRenderer
     {
     public:
@@ -32,7 +34,7 @@ namespace WindowsHolographicCodeSamples
             DX::StepTimer const& timer,
             Windows::Perception::Spatial::SpatialCoordinateSystem^ coordinateSystem
             );
-        void Render(bool isStereo, bool useWireframe);
+        void Render(bool isStereo, bool useWireframe, UINT index);
 
         bool HasSurface(Platform::Guid id);
         void AddSurface(Platform::Guid id, Windows::Perception::Spatial::Surfaces::SpatialSurfaceInfo^ newSurface);
@@ -43,7 +45,8 @@ namespace WindowsHolographicCodeSamples
         void HideInactiveMeshes(
             Windows::Foundation::Collections::IMapView<Platform::Guid,
             Windows::Perception::Spatial::Surfaces::SpatialSurfaceInfo^>^ const& surfaceCollection);
-		bool m_textureReady;
+		bool m_textureReady[4];
+		const static UINT NUMBER_OF_TEXTURES = 4;
 
     private:
         Concurrency::task<void> AddOrUpdateSurfaceAsync(Platform::Guid id, Windows::Perception::Spatial::Surfaces::SpatialSurfaceInfo^ newSurface);
@@ -57,8 +60,8 @@ namespace WindowsHolographicCodeSamples
         Microsoft::WRL::ComPtr<ID3D11GeometryShader>		m_geometryShader;
         Microsoft::WRL::ComPtr<ID3D11PixelShader>			m_lightingPixelShader;
         Microsoft::WRL::ComPtr<ID3D11PixelShader>			m_colorPixelShader;
-		Microsoft::WRL::ComPtr<ID3D11Texture2D>				m_texture;
-		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_colorTexture;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D>				m_texture[NUMBER_OF_TEXTURES];
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_colorTexture[NUMBER_OF_TEXTURES];
 		Microsoft::WRL::ComPtr<ID3D11SamplerState>			m_textureSampler;
 
 

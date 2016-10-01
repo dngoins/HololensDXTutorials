@@ -317,6 +317,14 @@ HolographicFrame^ HolographicSpatialMappingMain::Update()
     {
         // When a Pressed gesture is detected, the rendering mode will be changed to wireframe.
         m_drawWireframe = !m_drawWireframe;
+
+		if (m_drawWireframe)
+		{
+			//click through various textures
+			++mTextureIndex;
+
+			if (mTextureIndex >= m_meshCollection->NUMBER_OF_TEXTURES) mTextureIndex = 0;
+		}
     }
 #endif
 
@@ -387,7 +395,7 @@ bool HolographicSpatialMappingMain::Render(Windows::Graphics::Holographic::Holog
             if (cameraActive)
             {
                 // Draw the sample hologram.
-                m_meshCollection->Render(pCameraResources->IsRenderingStereoscopic(), m_drawWireframe);
+                m_meshCollection->Render(pCameraResources->IsRenderingStereoscopic(), m_drawWireframe, mTextureIndex);
             }
 #endif
             atLeastOneCameraRendered = true;

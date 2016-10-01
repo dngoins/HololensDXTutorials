@@ -123,13 +123,7 @@
     <Image Include="Content\Textures\nuwaupian_holding_fire.dds">
       <Filter>Content\Textures</Filter>
     </Image>
-    <Image Include="Content\Textures\nuwaupian_holding_fire2.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
     <Image Include="Content\Textures\stone.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\nuwaupian_holding_fire3.dds">
       <Filter>Content\Textures</Filter>
     </Image>
     <Image Include="microsoft-sdk.png">
