@@ -168,8 +168,10 @@ void SpinningCubeRenderer::Render(bool showRecording)
 		);
 	}
 	else if (m_meshLoadingComplete)
+	{
+	
 		m_micMan->Draw(m_deviceResources->GetD3DDeviceContext(), *m_states, m_world, m_view, m_proj);
-
+	}
 }
 
 void SpinningCubeRenderer::CreateDeviceDependentResources()
@@ -270,20 +272,25 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
 		loadMicManMeshTask.then([=](const std::vector<byte>& fileData)
 		{
 			try {
-				DGSLEffectFactory fx(m_deviceResources->GetD3DDevice());
-				fx.SetDirectory(L"Assets");
+				//DGSLEffectFactory fx(m_deviceResources->GetD3DDevice());
+				m_fx = std::make_unique<EffectFactory>(m_deviceResources->GetD3DDevice());
+
+				m_fx->SetDirectory(L"Assets");
+
 				// Can also use EffectFactory, but will ignore pixel shader material settings
 
-				m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), &fileData[0],					fileData.size(), fx);
+				m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), &fileData[0],					fileData.size(), *m_fx);
 				//m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), L"MicMan.cmo", fx);
 
+					
 				m_states = std::make_unique<DirectX::CommonStates>(m_deviceResources->GetD3DDevice());
 
+				
 				m_world = DirectX::SimpleMath::Matrix::Identity;
 
 				m_view = DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(2.f, 2.f, 2.f), DirectX::SimpleMath::Vector3::Zero, DirectX::SimpleMath::Vector3::UnitY);
 				m_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f,
-					800.f / 600.f, 0.1f, 10.f);
+					1800.f / 1600.f, 0.5f, 5.f);
 
 				m_meshLoadingComplete = true;
 			}
@@ -410,4 +417,7 @@ void SpinningCubeRenderer::ReleaseDeviceDependentResources()
     m_modelConstantBuffer.Reset();
     m_vertexBuffer.Reset();
     m_indexBuffer.Reset();
+	m_states.reset();
+	m_fx.reset();
+	m_micMan.reset();
 }

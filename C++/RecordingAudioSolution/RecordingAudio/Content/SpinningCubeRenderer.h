@@ -60,7 +60,7 @@ namespace RecordingAudio
         bool                                            m_usingVprtShaders = false;
 		bool											m_showRecording = false;
 		std::unique_ptr<Model>							m_micMan;
-		
+		std::unique_ptr<EffectFactory>					m_fx;
 		std::unique_ptr<DirectX::CommonStates> m_states;
 		DirectX::SimpleMath::Matrix m_world;
 		DirectX::SimpleMath::Matrix m_view;

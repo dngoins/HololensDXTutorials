@@ -164,25 +164,25 @@
     <Image Include="Content\Textures\seq00002.jpg.dds">
       <Filter>Content\Textures</Filter>
     </Image>
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_Lakerem2.jpg.dds">
+    <Image Include="Assets\_Users_dngoi_Source_Repos_Hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_Lakerem2.jpg.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone.jpg.dds">
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_phone.jpg.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone1.jpg.dds">
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_phone1.jpg.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone2.jpg.dds">
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_phone2.jpg.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq0000.jpg.dds">
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_seq0000.jpg.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00001.jpg.dds">
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_seq00001.jpg.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00002.jpg.dds">
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_seq00002.jpg.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

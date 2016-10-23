@@ -65,7 +65,11 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
     </ClCompile>
+    <FxCompile>
+      <ShaderModel>5.1</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
@@ -89,13 +93,13 @@
     <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Image Include="Assets\StoreLogo.png" />
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_Lakerem2.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone1.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone2.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq0000.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00001.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00002.jpg.dds" />
+    <Image Include="Assets\_Users_dngoi_Source_Repos_Hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_Lakerem2.jpg.dds" />
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_phone.jpg.dds" />
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_phone1.jpg.dds" />
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_phone2.jpg.dds" />
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_seq0000.jpg.dds" />
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_seq00001.jpg.dds" />
+    <Image Include="Assets\_users_dngoi_source_repos_hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_seq00002.jpg.dds" />
     <Image Include="Content\Textures\Lakerem2.jpg" />
     <Image Include="Content\Textures\Lakerem2.jpg.dds" />
     <Image Include="Content\Textures\phone.jpg" />

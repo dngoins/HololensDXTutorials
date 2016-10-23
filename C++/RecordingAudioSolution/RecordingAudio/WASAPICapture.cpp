@@ -173,7 +173,7 @@ HRESULT WASAPICapture::ActivateCompleted( IActivateAudioInterfaceAsyncOperation 
 
     case WAVE_FORMAT_IEEE_FLOAT:
         m_MixFormat->wFormatTag = WAVE_FORMAT_PCM;
-        m_MixFormat->wBitsPerSample = 16;
+  //      m_MixFormat->wBitsPerSample = 32;
         m_MixFormat->nBlockAlign = m_MixFormat->nChannels * m_MixFormat->wBitsPerSample / BITS_PER_BYTE;
         m_MixFormat->nAvgBytesPerSec = m_MixFormat->nSamplesPerSec * m_MixFormat->nBlockAlign;
         break;
@@ -188,7 +188,7 @@ HRESULT WASAPICapture::ActivateCompleted( IActivateAudioInterfaceAsyncOperation 
             else if ( pWaveFormatExtensible->SubFormat == KSDATAFORMAT_SUBTYPE_IEEE_FLOAT )
             {
                 pWaveFormatExtensible->SubFormat = KSDATAFORMAT_SUBTYPE_PCM;
-                pWaveFormatExtensible->Format.wBitsPerSample = 16;
+ //               pWaveFormatExtensible->Format.wBitsPerSample = 32;
                 pWaveFormatExtensible->Format.nBlockAlign =
                     pWaveFormatExtensible->Format.nChannels *
                     pWaveFormatExtensible->Format.wBitsPerSample /
