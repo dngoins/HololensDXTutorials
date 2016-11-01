@@ -65,6 +65,14 @@ namespace RecordingAudio
 		DirectX::SimpleMath::Matrix m_world;
 		DirectX::SimpleMath::Matrix m_view;
 		DirectX::SimpleMath::Matrix m_proj;
+		
+    	//To show the lake picture
+    	ComPtr<ID3D11ShaderResourceView>				m_lakeTexture;
+		ComPtr<ID3D11Resource>							m_lakeResource;
+		std::unique_ptr<SpriteBatch>					m_spriteBatch;
+		SimpleMath::Vector2								m_screenPos;
+		SimpleMath::Vector2								m_origin;
+		bool											m_lakeTextureComplete = false;
 
 		bool	m_meshLoadingComplete = false;
 

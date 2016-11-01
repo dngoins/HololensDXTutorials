@@ -8,10 +8,12 @@ using namespace Concurrency;
 using namespace DirectX;
 using namespace Windows::Foundation::Numerics;
 using namespace Windows::UI::Input::Spatial;
+using namespace DirectX::SimpleMath;
+using namespace Microsoft::WRL;
 
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
 SpinningCubeRenderer::SpinningCubeRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
-    m_deviceResources(deviceResources), m_states(nullptr)
+    m_deviceResources(deviceResources), m_states(nullptr),	m_lakeResource(nullptr), m_lakeTexture(nullptr)
 {
     CreateDeviceDependentResources();
 }
@@ -26,6 +28,7 @@ void SpinningCubeRenderer::PositionHologram(SpatialPointerPose^ pointerPose)
         const float3 headPosition    = pointerPose->Head->Position;
         const float3 headDirection   = pointerPose->Head->ForwardDirection;
 
+		
         // The hologram is positioned two meters along the user's gaze direction.
         static const float distanceFromUser = 2.0f; // meters
         const float3 gazeAtTwoMeters        = headPosition + (distanceFromUser * headDirection);
@@ -172,10 +175,24 @@ void SpinningCubeRenderer::Render(bool showRecording)
 	
 		m_micMan->Draw(m_deviceResources->GetD3DDeviceContext(), *m_states, m_world, m_view, m_proj);
 	}
+
+	if(m_lakeTextureComplete)
+	{
+		if (m_meshLoadingComplete)
+		{
+
+			m_micMan->Draw(m_deviceResources->GetD3DDeviceContext(), *m_states, m_world, m_view, m_proj);
+		}
+
+		m_spriteBatch->Begin();
+		m_spriteBatch->Draw(m_lakeTexture.Get(), m_origin, nullptr, Colors::White, 0.f, m_origin);
+		m_spriteBatch->End();
+	}
 }
 
 void SpinningCubeRenderer::CreateDeviceDependentResources()
 {
+	
     m_usingVprtShaders = m_deviceResources->GetDeviceSupportsVprt();
 
     // On devices that do support the D3D11_FEATURE_D3D11_OPTIONS3::
@@ -196,8 +213,26 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
         loadGSTask = DX::ReadDataAsync(L"ms-appx:///GeometryShader.cso");
     }
 
-	//task<std::vector<byte>> loadMicManMesh = DX::ReadDataAsync(L"ms-appx:///MicMan.cmo");
+	task<std::vector<byte>> loadLakeTextureTask = DX::ReadDataAsync(L"ms-appx:///Assets\\_Users_dngoi_Source_Repos_Hololensdxtutorials_c++_recordingaudiosolution_debug_recordingaudio_Lakerem2.jpg.dds");
 
+	task<std::vector<byte>> loadMicManMeshTask = DX::ReadDataAsync(L"ms-appx:///MicMan.cmo");
+
+	// After the vertex shader file is loaded, create the shader and input layout.
+	task<void> createLakeTextureTask = loadLakeTextureTask.then([this](const std::vector<byte>& fileData)
+	{
+		DX::ThrowIfFailed(CreateDDSTextureFromMemory(m_deviceResources->GetD3DDevice(), &fileData[0], fileData.size(), m_lakeResource.GetAddressOf(), m_lakeTexture.GetAddressOf()));
+		m_lakeTextureComplete = true;
+		m_spriteBatch = std::make_unique<SpriteBatch>(m_deviceResources->GetD3DDeviceContext());
+		ComPtr<ID3D11Texture2D> lake;
+		DX::ThrowIfFailed(m_lakeResource.As(&lake));
+		
+			CD3D11_TEXTURE2D_DESC lakeDesc;
+			lake->GetDesc(&lakeDesc);
+			m_origin.x = float(lakeDesc.Width / 2);
+			m_origin.y = float(lakeDesc.Height / 2);
+		//	m_spriteBatch->SetRotation(m_outputRotation);
+
+	});
 
     // After the vertex shader file is loaded, create the shader and input layout.
     task<void> createVSTask = loadVSTask.then([this] (const std::vector<byte>& fileData)
@@ -267,7 +302,7 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
         });
     }
 
-	task<std::vector<byte>> loadMicManMeshTask = DX::ReadDataAsync(L"ms-appx:///MicMan.cmo");
+	
 		// After the pass-through geometry shader file is loaded, create the shader.
 		loadMicManMeshTask.then([=](const std::vector<byte>& fileData)
 		{
@@ -288,9 +323,9 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
 				
 				m_world = DirectX::SimpleMath::Matrix::Identity;
 
-				m_view = DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(2.f, 2.f, 2.f), DirectX::SimpleMath::Vector3::Zero, DirectX::SimpleMath::Vector3::UnitY);
+				m_view = DirectX::SimpleMath::Matrix::CreateLookAt( DirectX::SimpleMath::Vector3::Zero, DirectX::SimpleMath::Vector3(m_origin.x, m_origin.y, 30.0f), DirectX::SimpleMath::Vector3::UnitY);
 				m_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f,
-					1800.f / 1600.f, 0.5f, 5.f);
+					1.5f, 0.5f, 5.f);
 
 				m_meshLoadingComplete = true;
 			}
@@ -420,4 +455,9 @@ void SpinningCubeRenderer::ReleaseDeviceDependentResources()
 	m_states.reset();
 	m_fx.reset();
 	m_micMan.reset();
+
+	m_lakeResource.Reset();
+	m_lakeTexture.Reset();
+	m_spriteBatch.reset();
+
 }

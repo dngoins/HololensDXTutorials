@@ -52,6 +52,7 @@ void RecordingAudioMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
     // Use the default SpatialLocator to track the motion of the device.
     m_locator = SpatialLocator::GetDefault();
 
+	
     // Be able to respond to changes in the positional tracking state.
     m_locatabilityChangedToken =
         m_locator->LocatabilityChanged +=
