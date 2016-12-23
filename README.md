@@ -1,3 +1,4 @@
+
 # HololensDXTutorials
 Hololens DirectX Tutorials in C# and C++
 
@@ -17,3 +18,7 @@ Examples include:
 
 **Artistic** ![Artistic](http://i.imgur.com/09xq0u4.jpg)
 **Artistic 2** ![Artistic 2](http://i.imgur.com/hcE8gm4.jpg)
+
+**Remotinghostsample** - This examples builds off the HolographicCompanionKit, however due to the size limit of github, and the size of the external libraries required to run the example you can find this repo ![Remoting Shared BitBucket Repo](https://dngoins@bitbucket.org/dngoins/dngoins_remotinghostsample.git)
+![YouTube Video Here](https://youtu.be/uHpun3s0G3g)
+![](https://i.imgur.com/q48IzLq.jpg)
