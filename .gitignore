@@ -244,4 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-!./RemotingHostSample/external/*.*
+!./c++/RemotingHostSample/external/*.*
