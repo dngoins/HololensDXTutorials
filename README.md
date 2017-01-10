@@ -25,3 +25,5 @@ Examples include:
 (https://youtu.be/uHpun3s0G3g)
 
 ![](https://i.imgur.com/q48IzLq.jpg)
+
+**Displaying 3D like Text** - This example is a simple example of how text can be displayed in 3D utilizing [my forked DirectXTK (DirectX ToolKit) repo](https://github.com/dngoins/DirectXTK "Dwight's DirectXTK"). The sample uses the SpriteBatch and SpriteFont classes, along with MakeSpriteFont utility to display the words "TEST WORDS" in 3D.
