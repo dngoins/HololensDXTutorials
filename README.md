@@ -20,7 +20,7 @@ Examples include:
 **Artistic 2** ![Artistic 2](http://i.imgur.com/hcE8gm4.jpg)
 
 **Remotinghostsample** - This examples builds off the HolographicCompanionKit, however due to the size limit of github, and the size of the external libraries required to run the example you can find this repo:
-(https://bitbucket.org/dngoins/dngoins_remotinghostsample)
+(https://bitbucket.org/dngoins/holoremoting)
 
 (https://youtu.be/uHpun3s0G3g)
 
