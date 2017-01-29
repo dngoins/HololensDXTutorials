@@ -16,9 +16,10 @@
 *.lastbuildstate
 *.ilk
 *.VC.db
-Bin
+!Bin
 /Src/Shaders/Compiled/XboxOne*.inc
 /ipch
 /MakeSpriteFont/obj
 /Tests
 /wiki
+!/bin/Windows10/Win32/Debug
