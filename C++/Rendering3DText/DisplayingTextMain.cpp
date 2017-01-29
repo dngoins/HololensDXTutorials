@@ -47,7 +47,7 @@ void DisplayingTextMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
 		size_t fileSize = fileData.size();
 		uint8_t const* blob = fileData.data();
 
-		mSpriteFont = std::make_unique<DirectX::SpriteFont>(m_deviceResources->GetD3DDevice(), blob, fileSize);
+		mSpriteFont = std::make_unique<DirectX::SpriteFont>((ID3D11Device*)m_deviceResources->GetD3DDevice(), blob, fileSize);
 		m_fontLoaded = true;
 	});
 

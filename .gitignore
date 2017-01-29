@@ -245,3 +245,4 @@ ModelManifest.xml
 .fake/
 
 !./c++/RemotingHostSample/external/*.*
+!./c++/Rendering3DText/DirectXTK/*.*

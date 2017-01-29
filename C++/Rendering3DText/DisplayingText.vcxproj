@@ -159,7 +159,7 @@
     <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\DirectXTK\Inc;$(IncludePath)</IncludePath>
-    <LibraryPath>..\DirectXTK\Bin\Windows10\Win32\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)DirectXTK\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)DirectXTK\bin\Windows10\Win32\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
 </Project>
