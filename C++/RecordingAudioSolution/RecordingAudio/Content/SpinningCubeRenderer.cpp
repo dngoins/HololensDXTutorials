@@ -167,8 +167,8 @@ void SpinningCubeRenderer::Render(bool showRecording)
 			0               // Start instance location.
 		);
 	}
-	else if (m_meshLoadingComplete)
-		m_micMan->Draw(m_deviceResources->GetD3DDeviceContext(), *m_states, m_world, m_view, m_proj);
+	//else if (m_meshLoadingComplete)
+	//	m_micMan->Draw(m_deviceResources->GetD3DDeviceContext(), *m_states, m_world, m_view, m_proj);
 
 }
 
@@ -265,50 +265,50 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
         });
     }
 
-	task<std::vector<byte>> loadMicManMeshTask = DX::ReadDataAsync(L"ms-appx:///MicMan.cmo");
-		// After the pass-through geometry shader file is loaded, create the shader.
-		loadMicManMeshTask.then([=](const std::vector<byte>& fileData)
-		{
-			try {
-				DGSLEffectFactory fx(m_deviceResources->GetD3DDevice());
-				fx.SetDirectory(L"Assets");
-				// Can also use EffectFactory, but will ignore pixel shader material settings
+	//task<std::vector<byte>> loadMicManMeshTask = DX::ReadDataAsync(L"ms-appx:///MicMan.cmo");
+	//	// After the pass-through geometry shader file is loaded, create the shader.
+	//	loadMicManMeshTask.then([=](const std::vector<byte>& fileData)
+	//	{
+	//		try {
+	//			DGSLEffectFactory fx(m_deviceResources->GetD3DDevice());
+	//			fx.SetDirectory(L"Assets");
+	//			// Can also use EffectFactory, but will ignore pixel shader material settings
 
-				m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), &fileData[0],					fileData.size(), fx);
-				//m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), L"MicMan.cmo", fx);
+	//			m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), &fileData[0],					fileData.size(), fx);
+	//			//m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), L"MicMan.cmo", fx);
 
-				m_states = std::make_unique<DirectX::CommonStates>(m_deviceResources->GetD3DDevice());
+	//			m_states = std::make_unique<DirectX::CommonStates>(m_deviceResources->GetD3DDevice());
 
-				m_world = DirectX::SimpleMath::Matrix::Identity;
+	//			m_world = DirectX::SimpleMath::Matrix::Identity;
 
-				m_view = DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(2.f, 2.f, 2.f), DirectX::SimpleMath::Vector3::Zero, DirectX::SimpleMath::Vector3::UnitY);
-				m_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f,
-					800.f / 600.f, 0.1f, 10.f);
+	//			m_view = DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(2.f, 2.f, 2.f), DirectX::SimpleMath::Vector3::Zero, DirectX::SimpleMath::Vector3::UnitY);
+	//			m_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f,
+	//				800.f / 600.f, 0.1f, 10.f);
 
-				m_meshLoadingComplete = true;
-			}
-			catch (Platform::COMException^ e)
-			{
-				//Example output: The system cannot find the specified file.
-				OutputDebugString(e->Message->Data());
-			}
+	//			m_meshLoadingComplete = true;
+	//		}
+	//		catch (Platform::COMException^ e)
+	//		{
+	//			//Example output: The system cannot find the specified file.
+	//			OutputDebugString(e->Message->Data());
+	//		}
 
-		}).then([](task<void> t)
-		{
+	//	}).then([](task<void> t)
+	//	{
 
-			try
-			{
-				t.get();
-				// .get() didn' t throw, so we succeeded.
-				OutputDebugString(L"File deleted.");
-			}
-			catch (Platform::COMException^ e)
-			{
-				//Example output: The system cannot find the specified file.
-				OutputDebugString(e->Message->Data());
-			}
+	//		try
+	//		{
+	//			t.get();
+	//			// .get() didn' t throw, so we succeeded.
+	//			OutputDebugString(L"File deleted.");
+	//		}
+	//		catch (Platform::COMException^ e)
+	//		{
+	//			//Example output: The system cannot find the specified file.
+	//			OutputDebugString(e->Message->Data());
+	//		}
 
-		});
+	//	});
 
 	
 
