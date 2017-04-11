@@ -89,13 +89,6 @@
     <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Image Include="Assets\StoreLogo.png" />
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_Lakerem2.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone1.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_phone2.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq0000.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00001.jpg.dds" />
-    <Image Include="Assets\_users_dngoins_source_repos_hololensdxtutorials_c#_recordingaudiosolution_debug_recordingaudio_seq00002.jpg.dds" />
     <Image Include="Content\Textures\Lakerem2.jpg" />
     <Image Include="Content\Textures\Lakerem2.jpg.dds" />
     <Image Include="Content\Textures\phone.jpg" />
@@ -211,8 +204,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\MicMan.fbx">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    <MeshContentTask Include="Assets\TiyaBirdie.3mf.fbx">
+      <DeploymentContent>true</DeploymentContent>
     </MeshContentTask>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -224,6 +217,7 @@
   </ImportGroup>
   <PropertyGroup>
     <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+    <PackageCertificateThumbprint>9A452D4725B97CCA6BEB2BECECE5DB282627E3E8</PackageCertificateThumbprint>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

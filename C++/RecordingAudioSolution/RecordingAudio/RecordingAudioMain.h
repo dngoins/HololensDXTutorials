@@ -18,6 +18,8 @@
 #include "Content\SpatialInputHandler.h"
 #endif
 
+#include "Content\ModelRenderer.h"
+
 #include "WASAPICapture.h"
 
 #define OSC_START_X  100
@@ -95,6 +97,8 @@ namespace RecordingAudio
         // Renders a colorful holographic cube that's 20 centimeters wide. This sample content
         // is used to demonstrate world-locked rendering.
         std::unique_ptr<SpinningCubeRenderer>                           m_spinningCubeRenderer;
+
+		std::unique_ptr<ModelRenderer>                               m_modelRenderer;
 
         // Listens for the Pressed spatial input event.
         std::shared_ptr<SpatialInputHandler>                            m_spatialInputHandler;
