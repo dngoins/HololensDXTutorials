@@ -54,7 +54,7 @@ namespace DX
         IDWriteFactory2*        GetDWriteFactory() const                { return m_dwriteFactory.Get(); }
         IWICImagingFactory2*    GetWicImagingFactory() const            { return m_wicFactory.Get();    }
 
-    private:
+    
         // Private methods related to the Direct3D device, and resources based on that device.
         void CreateDeviceIndependentResources();
         void InitializeUsingHolographicSpace();

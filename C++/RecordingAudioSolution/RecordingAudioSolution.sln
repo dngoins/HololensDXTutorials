@@ -1,22 +1,36 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RecordingAudio", "RecordingAudio\RecordingAudio.vcxproj", "{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Library", "Library\Library.vcxproj", "{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Debug|x64.ActiveCfg = Debug|Win32
 		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Debug|x86.ActiveCfg = Debug|Win32
 		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Debug|x86.Build.0 = Debug|Win32
 		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Debug|x86.Deploy.0 = Debug|Win32
+		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Release|x64.ActiveCfg = Release|Win32
 		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Release|x86.ActiveCfg = Release|Win32
 		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Release|x86.Build.0 = Release|Win32
 		{34E3C1FB-5601-4885-A3C7-9C51FE870C3F}.Release|x86.Deploy.0 = Release|Win32
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Debug|x64.ActiveCfg = Debug|x64
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Debug|x64.Build.0 = Debug|x64
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Debug|x86.ActiveCfg = Debug|Win32
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Debug|x86.Build.0 = Debug|Win32
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Release|x64.ActiveCfg = Release|x64
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Release|x64.Build.0 = Release|x64
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Release|x86.ActiveCfg = Release|Win32
+		{8F60BA9C-AAB6-47E4-BD36-DCDEBF4D9AE6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,7 +28,6 @@ using namespace Windows::Foundation::Numerics;
 SurfaceMesh::SurfaceMesh()
 {
     ReleaseDeviceDependentResources();
-
 }
 
 SurfaceMesh::~SurfaceMesh()
@@ -83,6 +82,8 @@ void SurfaceMesh::UpdateTransform(
                 m_colorFadeTimer = m_colorFadeTimeout = -1.f;
             }
         }
+
+		
 
         // The transform is updated relative to a SpatialCoordinateSystem. In the SurfaceMesh class, we
         // expect to be given the same SpatialCoordinateSystem that will be used to generate view
@@ -152,9 +153,7 @@ void SurfaceMesh::UpdateTransform(
 // after setting up the constant buffer for the surface mesh.
 // The caller is responsible for the rest of the shader pipeline.
 void SurfaceMesh::Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool usingVprtShaders, bool isStereo)
-{
-
-	
+{	
     if (m_updateNeeded)
     {
         ReleaseVertexResources();

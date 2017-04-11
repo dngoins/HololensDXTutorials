@@ -71,6 +71,8 @@
     <ClCompile Include="WASAPIRenderer.cpp" />
     <ClCompile Include="ToneSampleGenerator.cpp" />
     <ClCompile Include="MFSampleGenerator.cpp" />
+    <ClCompile Include="Common\DeviceResourcesWindowed.cpp" />
+    <ClCompile Include="Content\ModelRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -94,6 +96,8 @@
     <ClInclude Include="WASAPIRenderer.h" />
     <ClInclude Include="ToneSampleGenerator.h" />
     <ClInclude Include="MFSampleGenerator.h" />
+    <ClInclude Include="Common\DeviceResourcesWindowed.h" />
+    <ClInclude Include="Content\ModelRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Content\VertexShader.hlsl">

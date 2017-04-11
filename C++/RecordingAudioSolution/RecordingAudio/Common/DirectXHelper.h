@@ -13,21 +13,127 @@ namespace DX
         }
     }
 
-    // Function that reads from a binary file asynchronously.
-    inline Concurrency::task<std::vector<byte>> ReadDataAsync(const std::wstring& filename)
-    {
-        using namespace Windows::Storage;
-        using namespace Concurrency;
 
-        return create_task(PathIO::ReadBufferAsync(Platform::StringReference(filename.c_str()))).then(
-            [] (Streams::IBuffer^ fileBuffer) -> std::vector<byte>
-            {
-                std::vector<byte> returnBuffer;
-                returnBuffer.resize(fileBuffer->Length);
-                Streams::DataReader::FromBuffer(fileBuffer)->ReadBytes(Platform::ArrayReference<byte>(returnBuffer.data(), returnBuffer.size()));
-                return returnBuffer;
-            });
-    }
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+	inline Concurrency::task<Windows::Storage::StorageFolder^> GetLocalDirectoryAsync()
+	{
+		using namespace Windows::Storage;
+		using namespace Concurrency;
+
+		static StorageFolder^ s_folder;
+		static std::once_flag s_folderCreationFlag;
+
+		return task<StorageFolder^>([]()
+		{
+			std::call_once(s_folderCreationFlag, []()
+			{
+				WCHAR folderBuffer[MAX_PATH] = { 0 };
+				HMODULE hModule = GetModuleHandle(nullptr);
+				if (!GetModuleFileNameW(hModule, folderBuffer, _countof(folderBuffer)))
+				{
+					throw Platform::Exception::CreateException(HRESULT_FROM_WIN32(GetLastError()));
+				}
+
+				ThrowIfFailed(PathCchRemoveFileSpec(folderBuffer, _countof(folderBuffer)));
+
+				WCHAR canonicalFolderPath[MAX_PATH] = { 0 };
+				ThrowIfFailed(PathCchCanonicalize(canonicalFolderPath, _countof(canonicalFolderPath), folderBuffer));
+
+				create_task(
+					StorageFolder::GetFolderFromPathAsync(Platform::StringReference(canonicalFolderPath))).then(
+						[](StorageFolder^ folder)
+				{
+					s_folder = folder;
+				}).wait();
+			});
+
+			return task_from_result(s_folder);
+		});
+	}
+#endif
+
+	// Function that reads from a binary file asynchronously.
+	inline Concurrency::task<std::vector<byte>> ReadDataAsync(std::wstring filename)
+	{
+		using namespace Windows::Storage;
+		using namespace Concurrency;
+
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+		return GetLocalDirectoryAsync().then(
+			[filename](StorageFolder^ folder)
+		{
+			return folder->GetFileAsync(Platform::StringReference(filename.c_str()));
+		}).then(
+			[](StorageFile^ file)
+		{
+			return FileIO::ReadBufferAsync(file);
+		}).then(
+			[](Streams::IBuffer^ fileBuffer) -> std::vector<byte>
+		{
+			std::vector<byte> returnBuffer;
+			returnBuffer.resize(fileBuffer->Length);
+			Streams::DataReader::FromBuffer(fileBuffer)->ReadBytes(
+				Platform::ArrayReference<byte>(returnBuffer.data(),
+					static_cast<unsigned int>(returnBuffer.size())));
+			return returnBuffer;
+		});
+#else
+		auto folder = Windows::ApplicationModel::Package::Current->InstalledLocation;
+		return create_task(folder->GetFileAsync(Platform::StringReference(filename.c_str()))).then([](StorageFile^ file)
+		{
+			return FileIO::ReadBufferAsync(file);
+		}).then([](Streams::IBuffer^ fileBuffer) -> std::vector<byte>
+		{
+			std::vector<byte> returnBuffer;
+			returnBuffer.resize(fileBuffer->Length);
+			Streams::DataReader::FromBuffer(fileBuffer)->ReadBytes(Platform::ArrayReference<byte>(returnBuffer.data(), fileBuffer->Length));
+			return returnBuffer;
+		});
+
+
+#endif
+	}
+
+	inline Concurrency::task<std::vector<byte>> ReadFullPathDataAsync(std::wstring filename)
+	{
+		using namespace Windows::Storage;
+		using namespace Concurrency;
+
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+		return GetLocalDirectoryAsync().then(
+			[filename](StorageFolder^ folder)
+		{
+			return folder->GetFileAsync(Platform::StringReference(filename.c_str()));
+		}).then(
+			[](StorageFile^ file)
+		{
+			return FileIO::ReadBufferAsync(file);
+		}).then(
+			[](Streams::IBuffer^ fileBuffer) -> std::vector<byte>
+		{
+			std::vector<byte> returnBuffer;
+			returnBuffer.resize(fileBuffer->Length);
+			Streams::DataReader::FromBuffer(fileBuffer)->ReadBytes(
+				Platform::ArrayReference<byte>(returnBuffer.data(),
+					static_cast<unsigned int>(returnBuffer.size())));
+			return returnBuffer;
+		});
+#else
+
+		return create_task(Windows::Storage::StorageFile::GetFileFromPathAsync(Platform::StringReference(filename.c_str()))).then([](StorageFile^ file)
+		{
+			return FileIO::ReadBufferAsync(file);
+		}).then([](Streams::IBuffer^ fileBuffer) -> std::vector<byte>
+		{
+			std::vector<byte> returnBuffer;
+			returnBuffer.resize(fileBuffer->Length);
+			Streams::DataReader::FromBuffer(fileBuffer)->ReadBytes(Platform::ArrayReference<byte>(returnBuffer.data(), fileBuffer->Length));
+			return returnBuffer;
+		});
+
+
+#endif
+	}
 
     // Converts a length in device-independent pixels (DIPs) to a length in physical pixels.
     inline float ConvertDipsToPixels(float dips, float dpi)
