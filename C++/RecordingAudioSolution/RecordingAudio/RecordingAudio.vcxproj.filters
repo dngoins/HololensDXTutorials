@@ -56,6 +56,9 @@
     <Filter Include="Content\Textures">
       <UniqueIdentifier>{934c80e3-045b-436d-acae-19d7032b2d1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content\ModelShaders">
+      <UniqueIdentifier>{5fa151a3-2d20-495a-9f9e-9d30d8599f7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -111,6 +114,33 @@
     </FxCompile>
     <FxCompile Include="Content\VPRTVertexShader.hlsl">
       <Filter>Content\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelVPRTVertexShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelVertexShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelSurfaceVPRTVertexShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelSurfaceVertexShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelSurfaceGeometryShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelSolidColorPixelShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelSimpleLightingPixelShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelPixelShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\ModelShaders\ModelGeometryShader.hlsl">
+      <Filter>Content\ModelShaders</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

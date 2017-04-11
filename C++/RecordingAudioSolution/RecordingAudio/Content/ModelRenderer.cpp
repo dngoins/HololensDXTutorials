@@ -255,7 +255,7 @@ void ModelRenderer::CreateDeviceDependentResources()
 	// we can avoid using a pass-through geometry shader to set the render
 	// target array index, thus avoiding any overhead that would be 
 	// incurred by setting the geometry shader stage.
-	std::wstring vertexShaderFileName = m_usingVprtShaders ? L"VprtModelVertexShader.cso" : L"ModelVertexShader.cso";
+	std::wstring vertexShaderFileName = m_usingVprtShaders ? L"ModelVprtVertexShader.cso" : L"ModelVertexShader.cso";
 
 	// Load shaders asynchronously.
 	task<std::vector<byte>> loadVSTask = DX::ReadDataAsync(vertexShaderFileName);
