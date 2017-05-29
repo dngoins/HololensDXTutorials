@@ -4,7 +4,7 @@
 #include "GameException.h"
 #include <assimp/scene.h>
 
-namespace Library
+namespace MatMeshModLibrary
 {
     Mesh::Mesh(Model& model, aiMesh& mesh)
         : mModel(model), mMaterial(nullptr), mName(mesh.mName.C_Str()), mVertices(), mNormals(), mTangents(), mBiNormals(), mTextureCoordinates(), mVertexColors(),

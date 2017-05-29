@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <exception>
 
-namespace Library
+namespace MatMeshModLibrary
 {
     class GameTime;
 

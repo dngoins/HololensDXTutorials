@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	class GameTime
 	{

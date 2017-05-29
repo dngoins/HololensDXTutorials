@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.props" Condition="Exists('..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.props')" />
+  <Import Project="..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.props" Condition="Exists('..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.props')" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{34e3c1fb-5601-4885-a3c7-9c51fe870c3f}</ProjectGuid>
     <Keyword>HolographicApp</Keyword>
@@ -39,8 +39,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\ImageContentTask.props" />
-    <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\MeshContentTask.props" />
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\ShaderGraphContentTask.props" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -55,28 +55,30 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>d2d1.lib;d3d11.lib;dxgi.lib;dwrite.lib;windowscodecs.lib;MMDevAPI.lib;MFuuid.lib;MFReadWrite.lib;MFplat.lib;uuid.lib;WindowsApp.lib;Libraryd.lib;assimpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\assimp\lib\assimp_debug-dll_win32\;%(AdditionalLibraryDirectories);$(VCInstallDir)\lib\store;$(VCInstallDir)\lib;$(SolutionDir)Library\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>mincore.lib;kernel32.lib;ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>d2d1.lib;d3d11.lib;dxgi.lib;dwrite.lib;windowscodecs.lib;WindowsApp.lib;OneCore.lib;assimp-vc140-mt.lib;MFuuid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\MatMeshMod_Library\;$(SolutionDir)lib;$(SolutionDir)external\assimp\lib\assimp_debug-dll_win32\;%(AdditionalLibraryDirectories);$(VCInstallDir)\lib\store;$(VCInstallDir)\lib;$(SolutionDir)Library\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <DelayLoadDLLs>api-ms-win-core-profile-l1-1-0.dll;api-ms-win-core-com-l1-1-1.dll;api-ms-win-core-libraryloader-l1-2-0.dll;api-ms-win-core-memory-l1-1-2.dll;api-ms-win-core-heap-l1-2-0.dll;api-ms-win-core-interlocked-l1-2-0.dll;api-ms-win-core-sysinfo-l1-2-1.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-processthreads-l1-1-2.dll;api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll;api-ms-win-core-util-l1-1-0.dll;api-ms-win-core-string-l1-1-0.dll;api-ms-win-core-file-l2-1-1.dll;api-ms-win-core-file-l1-2-1.dll;api-ms-win-core-synch-l1-2-0.dll;api-ms-win-core-errorhandling-l1-1-1.dll;api-ms-win-core-handle-l1-1-0.dll;api-ms-win-core-debug-l1-1-1.dll;api-ms-win-crt-runtime-l1-1-0.dll;api-ms-win-crt-string-l1-1-0.dll;api-ms-win-crt-math-l1-1-0.dll;api-ms-win-crt-stdio-l1-1-0.dll;api-ms-win-crt-filesystem-l1-1-0.dll;api-ms-win-crt-time-l1-1-0.dll;api-ms-win-crt-convert-l1-1-0.dll;api-ms-win-crt-heap-l1-1-0.dll;api-ms-win-core-processenvironment-l1-2-0.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\dngoinsFork_DirectXTK\Inc;$(SolutionDir)external\assimp\include;$(ProjectDir);$(SolutionDir)external\dngoinsFork_DirectXTK\Inc;$(WindowsSDK_IncludePath);$(SolutionDir)external\assimp\include;$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; dwrite.lib; windowscodecs.lib; %(AdditionalDependencies); </AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store; $(VCInstallDir)\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d2d1.lib;d3d11.lib;dxgi.lib;dwrite.lib;windowscodecs.lib;lib; %(AdditionalDependencies); </AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\MatMeshMod_Library\;%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store; $(VCInstallDir)\lib</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>mincore.lib;kernel32.lib;ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\dngoinsFork_DirectXTK\Inc;$(SolutionDir)external\assimp\include;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -146,8 +148,20 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Assets\matMeshMod.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="assimp-vc140-mt.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="msvcp140d.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
     <None Include="packages.config" />
     <None Include="RecordingAudio_TemporaryKey.pfx" />
+    <None Include="vcruntime140d.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Content\ModelShaders\ModelGeometryShader.hlsl">
@@ -204,26 +218,31 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\TiyaBirdie.3mf.fbx">
+    <MeshContentTask Include="Assets\MicMan.fbx">
+      <DeploymentContent>true</DeploymentContent>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\TiyaBirdie.fbx">
       <DeploymentContent>true</DeploymentContent>
     </MeshContentTask>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\ImageContentTask.targets" />
-    <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\MeshContentTask.targets" />
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\ShaderGraphContentTask.targets" />
-    <Import Project="..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.targets')" />
+    <Import Project="..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.targets')" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.targets" />
   </ImportGroup>
   <PropertyGroup>
     <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>9A452D4725B97CCA6BEB2BECECE5DB282627E3E8</PackageCertificateThumbprint>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.props'))" />
-    <Error Condition="!Exists('..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2016.8.4.1\build\native\directxtk_uwp.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.props'))" />
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2017.2.10.1\build\native\directxtk_uwp.targets'))" />
   </Target>
 </Project>

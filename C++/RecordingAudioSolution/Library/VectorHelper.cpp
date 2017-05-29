@@ -1,7 +1,7 @@
 #include <sstream>
 #include "VectorHelper.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	const XMFLOAT2 Vector2Helper::Zero = XMFLOAT2(0.0f, 0.0f);
 	const XMFLOAT2 Vector2Helper::One = XMFLOAT2(1.0f, 1.0f);

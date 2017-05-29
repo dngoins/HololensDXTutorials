@@ -4,7 +4,7 @@
 #include "VectorHelper.h"
 #include "MatrixHelper.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     RTTI_DEFINITIONS(Camera)
 

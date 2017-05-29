@@ -54,7 +54,7 @@ namespace DX
         IDWriteFactory2*        GetDWriteFactory() const                { return m_dwriteFactory.Get(); }
         IWICImagingFactory2*    GetWicImagingFactory() const            { return m_wicFactory.Get();    }
 
-    
+	    
         // Private methods related to the Direct3D device, and resources based on that device.
         void CreateDeviceIndependentResources();
         void InitializeUsingHolographicSpace();
@@ -89,6 +89,11 @@ namespace DX
         // Back buffer resources, etc. for attached holographic cameras.
         std::map<UINT32, std::unique_ptr<CameraResources>>      m_cameraResources;
         std::mutex                                              m_cameraResourcesLock;
+
+		XMMATRIX												m_view;
+		XMMATRIX												m_projection;
+
+	
     };
 }
 

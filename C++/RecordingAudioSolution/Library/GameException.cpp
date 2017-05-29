@@ -1,6 +1,6 @@
 #include "GameException.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	GameException::GameException(const char* const& message, HRESULT hr)
 		: exception(message), mHR(hr)

@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "Light.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	class DirectionalLight : public Light
 	{

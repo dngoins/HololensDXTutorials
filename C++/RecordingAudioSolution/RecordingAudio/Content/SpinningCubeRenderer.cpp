@@ -82,7 +82,10 @@ void SpinningCubeRenderer::Update(const DX::StepTimer& timer)
 
 	float time = float(timer.GetTotalSeconds());
 
-	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(cosf(time) * 2.f);
+
+	m_world = modelTransform; // DirectX::SimpleMath::Matrix::CreateRotationZ(cosf(time) * 2.f);
+	m_proj = m_deviceResources->m_projection;
+	m_view = m_deviceResources->m_view;
 
 }
 
@@ -101,7 +104,7 @@ void SpinningCubeRenderer::Render(bool showRecording)
 
 	m_showRecording = showRecording;
 
-	//DirectX::CommonStates states();
+	DirectX::CommonStates states();
 	
 	
     const auto context = m_deviceResources->GetD3DDeviceContext();
@@ -167,8 +170,9 @@ void SpinningCubeRenderer::Render(bool showRecording)
 			0               // Start instance location.
 		);
 	}
-	//else if (m_meshLoadingComplete)
-	//	m_micMan->Draw(m_deviceResources->GetD3DDeviceContext(), *m_states, m_world, m_view, m_proj);
+
+	if (m_meshLoadingComplete)
+		m_micMan->Draw(m_deviceResources->GetD3DDeviceContext(), *m_states, m_world, m_view, m_proj);
 
 }
 
@@ -181,20 +185,20 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
     // we can avoid using a pass-through geometry shader to set the render
     // target array index, thus avoiding any overhead that would be 
     // incurred by setting the geometry shader stage.
-    std::wstring vertexShaderFileName = m_usingVprtShaders ? L"ms-appx:///VprtVertexShader.cso" : L"ms-appx:///VertexShader.cso";
+    std::wstring vertexShaderFileName = m_usingVprtShaders ? L"VPRTVertexShader.cso" : L"VertexShader.cso";
 
     // Load shaders asynchronously.
     task<std::vector<byte>> loadVSTask = DX::ReadDataAsync(vertexShaderFileName);
-    task<std::vector<byte>> loadPSTask = DX::ReadDataAsync(L"ms-appx:///PixelShader.cso");
+    task<std::vector<byte>> loadPSTask = DX::ReadDataAsync(L"PixelShader.cso");
 
     task<std::vector<byte>> loadGSTask;
     if (!m_usingVprtShaders)
     {
         // Load the pass-through geometry shader.
-        loadGSTask = DX::ReadDataAsync(L"ms-appx:///GeometryShader.cso");
+        loadGSTask = DX::ReadDataAsync(L"GeometryShader.cso");
     }
 
-	//task<std::vector<byte>> loadMicManMesh = DX::ReadDataAsync(L"ms-appx:///MicMan.cmo");
+	//task<std::vector<byte>> loadMicManMesh = DX::ReadDataAsync(L"tiyabirdie.3mf.fbx.cmo");
 
 
     // After the vertex shader file is loaded, create the shader and input layout.
@@ -265,50 +269,52 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
         });
     }
 
-	//task<std::vector<byte>> loadMicManMeshTask = DX::ReadDataAsync(L"ms-appx:///MicMan.cmo");
+	task<std::vector<byte>> loadMicManMeshTask = DX::ReadDataAsync(L"TiyaBirdie.cmo");
 	//	// After the pass-through geometry shader file is loaded, create the shader.
-	//	loadMicManMeshTask.then([=](const std::vector<byte>& fileData)
-	//	{
-	//		try {
-	//			DGSLEffectFactory fx(m_deviceResources->GetD3DDevice());
-	//			fx.SetDirectory(L"Assets");
-	//			// Can also use EffectFactory, but will ignore pixel shader material settings
+		loadMicManMeshTask.then([=](const std::vector<byte>& fileData)
+		{
+			try {
+				DGSLEffectFactory fx(m_deviceResources->GetD3DDevice());
+				
+				//fx.SetDirectory(L"Content\\Textures");
+				// Can also use EffectFactory, but will ignore pixel shader material settings
 
-	//			m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), &fileData[0],					fileData.size(), fx);
-	//			//m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), L"MicMan.cmo", fx);
+				m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), &fileData[0],					fileData.size(), fx);
+				//m_micMan = Model::CreateFromCMO(m_deviceResources->GetD3DDevice(), L"MicMan.cmo", fx);
 
-	//			m_states = std::make_unique<DirectX::CommonStates>(m_deviceResources->GetD3DDevice());
+				m_states = std::make_unique<DirectX::CommonStates>(m_deviceResources->GetD3DDevice());
 
-	//			m_world = DirectX::SimpleMath::Matrix::Identity;
+				m_world = DirectX::SimpleMath::Matrix::Identity;
 
-	//			m_view = DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(2.f, 2.f, 2.f), DirectX::SimpleMath::Vector3::Zero, DirectX::SimpleMath::Vector3::UnitY);
-	//			m_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f,
-	//				800.f / 600.f, 0.1f, 10.f);
+				m_view = DirectX::SimpleMath::Matrix::Identity;
+				//DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(2.f, 2.f, 2.f), DirectX::SimpleMath::Vector3::Zero, DirectX::SimpleMath::Vector3::UnitY);
+				m_proj = DirectX::SimpleMath::Matrix::Identity;
+				//DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f, 800.f / 600.f, 0.1f, 10.f);
 
-	//			m_meshLoadingComplete = true;
-	//		}
-	//		catch (Platform::COMException^ e)
-	//		{
-	//			//Example output: The system cannot find the specified file.
-	//			OutputDebugString(e->Message->Data());
-	//		}
+				m_meshLoadingComplete = true;
+			}
+			catch (Platform::COMException^ e)
+			{
+				//Example output: The system cannot find the specified file.
+				OutputDebugString(e->Message->Data());
+			}
 
-	//	}).then([](task<void> t)
-	//	{
+		}).then([](task<void> t)
+		{
 
-	//		try
-	//		{
-	//			t.get();
-	//			// .get() didn' t throw, so we succeeded.
-	//			OutputDebugString(L"File deleted.");
-	//		}
-	//		catch (Platform::COMException^ e)
-	//		{
-	//			//Example output: The system cannot find the specified file.
-	//			OutputDebugString(e->Message->Data());
-	//		}
+			try
+			{
+				t.get();
+				// .get() didn' t throw, so we succeeded.
+				OutputDebugString(L"Model Loaded Successfully.");
+			}
+			catch (Platform::COMException^ e)
+			{
+				//Example output: The system cannot find the specified file.
+				OutputDebugString(e->Message->Data());
+			}
 
-	//	});
+		});
 
 	
 
@@ -406,6 +412,7 @@ void SpinningCubeRenderer::ReleaseDeviceDependentResources()
     m_vertexShader.Reset();
     m_inputLayout.Reset();
     m_pixelShader.Reset();
+	m_micMan.reset();
     m_geometryShader.Reset();
     m_modelConstantBuffer.Reset();
     m_vertexBuffer.Reset();

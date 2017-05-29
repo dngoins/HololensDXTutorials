@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "GameComponent.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	class Light : public GameComponent
 	{

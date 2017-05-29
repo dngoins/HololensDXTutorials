@@ -16,7 +16,7 @@
 #include "ShaderStructures.h"
 
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	class Mesh;
 }
@@ -53,7 +53,7 @@ namespace RecordingAudio
 
 	private:
 
-		void CreateVertexBuffer(ID3D11Device* device, const Library::Mesh& mesh, ID3D11Buffer** vertexBuffer) const;
+		void CreateVertexBuffer(ID3D11Device* device, const MatMeshModLibrary::Mesh& mesh, ID3D11Buffer** vertexBuffer) const;
 
 		
 	private:

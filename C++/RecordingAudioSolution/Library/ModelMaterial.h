@@ -4,7 +4,7 @@
 
 struct aiMaterial;
 
-namespace Library
+namespace MatMeshModLibrary
 {
     enum TextureType
     {

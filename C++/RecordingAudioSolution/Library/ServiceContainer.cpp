@@ -1,6 +1,6 @@
 #include "ServiceContainer.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     ServiceContainer::ServiceContainer()
         : mServices()

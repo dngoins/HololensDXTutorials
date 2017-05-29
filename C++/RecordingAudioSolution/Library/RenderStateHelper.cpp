@@ -1,7 +1,7 @@
 #include "RenderStateHelper.h"
 #include "Game.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     RenderStateHelper::RenderStateHelper(Game& game)
         : mGame(game), mRasterizerState(nullptr), mBlendState(nullptr), mBlendFactor(new FLOAT[4]), mSampleMask(UINT_MAX), mDepthStencilState(nullptr), mStencilRef(UINT_MAX)

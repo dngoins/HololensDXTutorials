@@ -135,6 +135,7 @@ void DX::CameraResources::CreateResourcesForBackBuffer(
                 &m_viewProjectionConstantBuffer
                 )
             );
+						
     }
 }
 
@@ -148,7 +149,7 @@ void DX::CameraResources::ReleaseResourcesForBackBuffer(DX::DeviceResources* pDe
     m_d3dRenderTargetView.Reset();
     m_d3dDepthStencilView.Reset();
     m_viewProjectionConstantBuffer.Reset();
-
+	
     // Ensure system references to the back buffer are released by clearing the render
     // target from the graphics pipeline state, and then flushing the Direct3D context.
     ID3D11RenderTargetView* nullViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT] = { nullptr };
@@ -224,6 +225,7 @@ void DX::CameraResources::UpdateViewProjectionBuffer(
             0
             );
 
+		
         m_framePending = true;
     }
 }

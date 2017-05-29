@@ -1,7 +1,7 @@
 #include "SamplerStates.h"
 #include "GameException.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	ID3D11SamplerState* SamplerStates::TrilinearWrap = nullptr;
 	ID3D11SamplerState* SamplerStates::TrilinearMirror = nullptr;

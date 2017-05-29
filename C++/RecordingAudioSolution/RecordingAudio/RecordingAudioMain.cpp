@@ -38,6 +38,7 @@ void RecordingAudioMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
     //
     // TODO: Add code here to initialize your holographic content. 
 	//
+	m_modelRenderer = std::make_unique<ModelRenderer>(m_deviceResources, L"Assets\\TiyaBirdie.3mf.cmo", true);
 
 	InitializeAudio();
 	InitializeCapture(holographicSpace, nullptr);
@@ -176,6 +177,9 @@ HolographicFrame^ RecordingAudioMain::Update()
             pointerState->TryGetPointerPose(currentCoordinateSystem)
             );
 
+	//	m_modelRenderer->PositionHologram(pointerState->TryGetPointerPose(currentCoordinateSystem));
+
+
 		if (pointerState->IsPressed)
 		{
 			m_showRecording = !m_showRecording;
@@ -200,6 +204,7 @@ HolographicFrame^ RecordingAudioMain::Update()
         // but if you change the StepTimer to use a fixed time step this code will
         // run as many times as needed to get to the current step.
         //
+//		m_modelRenderer->Update(m_timer);
 
 #ifdef DRAW_SAMPLE_CONTENT
         m_spinningCubeRenderer->Update(m_timer);
@@ -309,14 +314,18 @@ bool RecordingAudioMain::Render(Windows::Graphics::Holographic::HolographicFrame
             // Attach the view/projection constant buffer for this camera to the graphics pipeline.
             bool cameraActive = pCameraResources->AttachViewProjectionBuffer(m_deviceResources);
 
-#ifdef DRAW_SAMPLE_CONTENT
+
             // Only render world-locked content when positional tracking is active.
             if (cameraActive)
             {
-                // Draw the sample hologram.
+		//		m_modelRenderer->Render(pCameraResources->IsRenderingStereoscopic());
+
+#ifdef DRAW_SAMPLE_CONTENT
+				// Draw the sample hologram.
                 m_spinningCubeRenderer->Render(this->m_showRecording);
-            }
 #endif
+            }
+
             atLeastOneCameraRendered = true;
         }
 
@@ -348,6 +357,8 @@ void RecordingAudioMain::LoadAppState()
 // need to be released before this method returns.
 void RecordingAudioMain::OnDeviceLost()
 {
+//	m_modelRenderer->ReleaseDeviceDependentResources();
+
 #ifdef DRAW_SAMPLE_CONTENT
     m_spinningCubeRenderer->ReleaseDeviceDependentResources();
 #endif
@@ -357,6 +368,8 @@ void RecordingAudioMain::OnDeviceLost()
 // may now be recreated.
 void RecordingAudioMain::OnDeviceRestored()
 {
+//	m_modelRenderer->CreateDeviceDependentResources();
+	
 #ifdef DRAW_SAMPLE_CONTENT
     m_spinningCubeRenderer->CreateDeviceDependentResources();
 #endif

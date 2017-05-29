@@ -11,6 +11,7 @@ using namespace Microsoft::WRL;
 using namespace Windows::Graphics::DirectX::Direct3D11;
 using namespace Windows::Graphics::Display;
 using namespace Windows::Graphics::Holographic;
+using namespace Windows::Perception::Spatial;
 
 // Constructor for DeviceResources.
 DX::DeviceResources::DeviceResources()
@@ -63,7 +64,7 @@ void DX::DeviceResources::SetHolographicSpace(HolographicSpace^ holographicSpace
 {
     // Cache the holographic space. Used to re-initalize during device-lost scenarios.
     m_holographicSpace = holographicSpace;
-
+	
     InitializeUsingHolographicSpace();
 }
 
@@ -236,8 +237,9 @@ void DX::DeviceResources::EnsureCameraResources(
         {
             HolographicCameraRenderingParameters^ renderingParameters = frame->GetRenderingParameters(pose);
             CameraResources* pCameraResources = cameraResourceMap[pose->HolographicCamera->Id].get();
-
+			
             pCameraResources->CreateResourcesForBackBuffer(this, renderingParameters);
+			
         }
     });
 }
@@ -246,6 +248,7 @@ void DX::DeviceResources::EnsureCameraResources(
 // Locks the set of holographic camera resources until the function exits.
 void DX::DeviceResources::AddHolographicCamera(HolographicCamera^ camera)
 {
+	
     UseHolographicCameraResources<void>([this, camera](std::map<UINT32, std::unique_ptr<CameraResources>>& cameraResourceMap)
     {
         cameraResourceMap[camera->Id] = std::make_unique<CameraResources>(camera);
@@ -315,6 +318,7 @@ void DX::DeviceResources::Trim()
 // Locks the set of holographic camera resources until the function exits.
 void DX::DeviceResources::Present(HolographicFrame^ frame)
 {
+
     // By default, this API waits for the frame to finish before it returns.
     // Holographic apps should wait for the previous frame to finish before
     // starting work on a new frame. This allows for better results from
@@ -322,10 +326,42 @@ void DX::DeviceResources::Present(HolographicFrame^ frame)
     HolographicFramePresentResult presentResult = frame->PresentUsingCurrentPrediction();
 
     HolographicFramePrediction^ prediction = frame->CurrentPrediction;
-    UseHolographicCameraResources<void>([this, prediction](std::map<UINT32, std::unique_ptr<CameraResources>>& cameraResourceMap)
-    {
-        for (auto cameraPose : prediction->CameraPoses)
-        {
+	UseHolographicCameraResources<void>([this, prediction, frame](std::map<UINT32, std::unique_ptr<CameraResources>>& cameraResourceMap)
+	{
+		for (auto cameraPose : prediction->CameraPoses)
+		{
+
+			// The projection transform for each frame is provided by the HolographicCameraPose.
+			HolographicStereoTransform cameraProjectionTransform = cameraPose->ProjectionTransform;
+			auto  locator = SpatialLocator::GetDefault();
+
+			auto coordinates = locator->CreateStationaryFrameOfReferenceAtCurrentLocation()->CoordinateSystem;
+
+			// Get a container object with the view and projection matrices for the given
+			// pose in the given coordinate system.
+			Platform::IBox<HolographicStereoTransform>^ viewTransformContainer = cameraPose->TryGetViewTransform(coordinates);
+
+			// If TryGetViewTransform returns a null pointer, that means the pose and coordinate
+			// system cannot be understood relative to one another; content cannot be rendered
+			// in this coordinate system for the duration of the current frame.
+			// This usually means that positional tracking is not active for the current frame, in
+			// which case it is possible to use a SpatialLocatorAttachedFrameOfReference to render
+			// content that is not world-locked instead.
+			bool viewTransformAcquired = viewTransformContainer != nullptr;
+			if (viewTransformAcquired)
+			{
+				// Otherwise, the set of view transforms can be retrieved.
+				HolographicStereoTransform viewCoordinateSystemTransform = viewTransformContainer->Value;
+
+				// Update the view matrices. Holographic cameras (such as Microsoft HoloLens) are
+				// constantly moving relative to the world. The view matrices need to be updated
+				// every frame.
+				m_view =
+					XMLoadFloat4x4(&viewCoordinateSystemTransform.Left); 
+				m_projection =  XMLoadFloat4x4(&cameraProjectionTransform.Left);
+			
+			}
+
             // This represents the device-based resources for a HolographicCamera.
             DX::CameraResources* pCameraResources = cameraResourceMap[cameraPose->HolographicCamera->Id].get();
 

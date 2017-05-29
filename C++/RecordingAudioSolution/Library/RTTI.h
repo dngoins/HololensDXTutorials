@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Library
+namespace MatMeshModLibrary
 {
     class RTTI
     {

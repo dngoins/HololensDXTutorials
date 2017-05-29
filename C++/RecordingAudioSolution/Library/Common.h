@@ -21,7 +21,7 @@
 #define DeleteObjects(objects) if((objects) != nullptr) { delete[] objects; objects = nullptr; }
 #define ReleaseObject(object) if((object) != nullptr) { object->Release(); object = nullptr; }
 
-namespace Library
+namespace MatMeshModLibrary
 {
     typedef unsigned char byte;
 }

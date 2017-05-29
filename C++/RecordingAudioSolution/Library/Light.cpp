@@ -1,7 +1,7 @@
 #include "Light.h"
 #include "ColorHelper.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	RTTI_DEFINITIONS(Light)
 

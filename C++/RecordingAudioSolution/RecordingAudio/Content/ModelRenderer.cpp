@@ -12,16 +12,22 @@
 #include "ModelRenderer.h"
 #include "..\Common\DirectXHelper.h"
 
-#include "../../Library/Utility.h"
-#include "../../Library/VertexDeclarations.h"
-#include "../../Library/ColorHelper.h"
-#include "../../Library/MatrixHelper.h"
-//#include "Model.h"
-#include "../../Library/Mesh.h"
-#include "../../Library/Model.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+
+//#include "..\MatMeshMod\Utility.h"
+//#include "..\MatMeshMod\VertexDeclarations.h"
+//#include "..\MatMeshMod\ColorHelper.h"
+//#include "..\MatMeshMod\MatrixHelper.h"
+//
+////#include "Model.h"
+//#include "..\MatMeshMod\Mesh.h"
+//#include "..\MatMeshMod\Model.h"
 
 using namespace RecordingAudio;
-using namespace Library;
+using namespace MatMeshModLibrary;
 using namespace Concurrency;
 using namespace DirectX;
 using namespace Windows::Foundation;
@@ -165,8 +171,8 @@ void ModelRenderer::Render(bool isStereo)
 	}
 	const auto context = m_deviceResources->GetD3DDeviceContext();
 
-	// Each vertex is one instance of the VertexPositionColor struct.
-	const UINT stride = sizeof(Library::VertexPositionColor);
+	// Each vertex is one instance of the Vertex_Position_Color struct.
+	const UINT stride = sizeof(Vertex_Position_Color);
 	const UINT offset = 0;
 	context->IASetVertexBuffers(
 		0,
@@ -374,15 +380,51 @@ void ModelRenderer::CreateDeviceDependentResources()
 
 	task<void> createModelTask = loadModelTask.then([this](const std::vector<byte>& fileData)
 	{
-		std::unique_ptr<Library::Model> model = std::make_unique<Library::Model>(LPVOID(&fileData[0]), fileData.size(), false);
+	//	std::unique_ptr<MatMeshModLibrary::Model> model = std::make_unique<MatMeshModLibrary::Model>(LPVOID(&fileData[0]), fileData.size(), false);
 
 	
 
 		// Create vertex and index buffers for the model
-		Library::Mesh* mesh = model->Meshes().at(0);
-		CreateVertexBuffer(m_deviceResources->GetD3DDevice(), *mesh, &m_vertexBuffer);
-		mesh->CreateIndexBuffer(m_deviceResources->GetD3DDevice(), &m_indexBuffer);
-		m_indexCount = mesh->Indices().size();
+	//	MatMeshModLibrary::Mesh* mesh = model->Meshes().at(0);
+	//	CreateVertexBuffer(m_deviceResources->GetD3DDevice(), *mesh, &m_vertexBuffer);
+	//	mesh->CreateIndexBuffer(m_deviceResources->GetD3DDevice(), &m_indexBuffer);
+	//	m_indexCount = mesh->Indices().size();
+	
+		Assimp::Importer importer;
+
+		UINT flags = aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_FlipWindingOrder;
+		/*if (flipUVs)
+		{
+			flags |= aiProcess_FlipUVs;
+		}
+*/
+		auto pBuffer = LPVOID(&fileData[0]);
+		auto pLength = fileData.size();
+
+		const aiScene* scene = importer.ReadFileFromMemory(pBuffer, pLength, 0);
+
+		if (scene == nullptr)
+		{
+			OutputDebugString(L"Couldn't read model from memory.\n");
+		}
+
+		if (scene->HasMaterials())
+		{
+			for (UINT i = 0; i < scene->mNumMaterials; i++)
+			{
+				//mMaterials.push_back(new ModelMaterial(*this, scene->mMaterials[i]));
+			}
+		}
+
+		if (scene->HasMeshes())
+		{
+			for (UINT i = 0; i < scene->mNumMeshes; i++)
+			{
+				//Mesh* mesh = new Mesh(*this, *(scene->mMeshes[i]));
+				//mMeshes.push_back(mesh);
+			}
+		}
+
 		m_modelLoaded = true;
 
 			
@@ -414,41 +456,41 @@ void ModelRenderer::CreateDeviceDependentResources()
 	});
 }
 
-void ModelRenderer::CreateVertexBuffer(ID3D11Device* device, const Library::Mesh& mesh, ID3D11Buffer** vertexBuffer) const
+void ModelRenderer::CreateVertexBuffer(ID3D11Device* device, const MatMeshModLibrary::Mesh& mesh, ID3D11Buffer** vertexBuffer) const
 {
-	const std::vector<XMFLOAT3>& sourceVertices = mesh.Vertices();
+	//const std::vector<XMFLOAT3>& sourceVertices = mesh.Vertices();
 
-	std::vector<Library::VertexPositionColor> vertices;
-	vertices.reserve(sourceVertices.size());
-	if (mesh.VertexColors().size() > 0)
-	{
-		std::vector<XMFLOAT4>* vertexColors = mesh.VertexColors().at(0);
-		assert(vertexColors->size() == sourceVertices.size());
+	//std::vector<Vertex_Position_Color> vertices;
+	//vertices.reserve(sourceVertices.size());
+	//if (mesh.VertexColors().size() > 0)
+	//{
+	//	std::vector<XMFLOAT4>* vertexColors = mesh.VertexColors().at(0);
+	//	assert(vertexColors->size() == sourceVertices.size());
 
-		for (UINT i = 0; i < sourceVertices.size(); i++)
-		{
-			XMFLOAT3 position = sourceVertices.at(i);
-			XMFLOAT4 color4 = vertexColors->at(i);
-			//XMFLOAT3 color = { color4.w, color4.x, color4.y };
+	//	for (UINT i = 0; i < sourceVertices.size(); i++)
+	//	{
+	//		XMFLOAT3 position = sourceVertices.at(i);
+	//		XMFLOAT4 color4 = vertexColors->at(i);
+	//		//XMFLOAT3 color = { color4.w, color4.x, color4.y };
 
-			vertices.push_back(Library::VertexPositionColor(XMFLOAT4(position.x, position.y, position.z, 1.0f),  color4));
-		}
-	}
-	else
-	{
-		for (UINT i = 0; i < sourceVertices.size(); i++)
-		{
-			XMFLOAT3 position = sourceVertices.at(i);
-			XMFLOAT4 color4 = Library::ColorHelper::RandomColor();
-			//XMFLOAT3 color = { color4.w, color4.x, color4.y };
+	//		vertices.push_back(Vertex_Position_Color(XMFLOAT4(position.x, position.y, position.z, 1.0f),  color4));
+	//	}
+	//}
+	//else
+	//{
+	//	for (UINT i = 0; i < sourceVertices.size(); i++)
+	//	{
+	//		XMFLOAT3 position = sourceVertices.at(i);
+	//		XMFLOAT4 color4 = MatMeshModLibrary::ColorHelper::RandomColor();
+	//		//XMFLOAT3 color = { color4.w, color4.x, color4.y };
 
-			vertices.push_back(Library::VertexPositionColor(XMFLOAT4(position.x, position.y, position.z, 1.0f),color4));
-		}
-	}
+	//		vertices.push_back(Vertex_Position_Color(XMFLOAT4(position.x, position.y, position.z, 1.0f),color4));
+	//	}
+	//}
 
-	D3D11_BUFFER_DESC vertexBufferDesc;
+	/*D3D11_BUFFER_DESC vertexBufferDesc;
 	ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
-	vertexBufferDesc.ByteWidth = sizeof(Library::VertexPositionColor) * vertices.size();
+	vertexBufferDesc.ByteWidth = sizeof(Vertex_Position_Color) * vertices.size();
 	vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
@@ -456,6 +498,7 @@ void ModelRenderer::CreateVertexBuffer(ID3D11Device* device, const Library::Mesh
 	ZeroMemory(&vertexSubResourceData, sizeof(vertexSubResourceData));
 	vertexSubResourceData.pSysMem = &vertices[0];
 	device->CreateBuffer(&vertexBufferDesc, &vertexSubResourceData, vertexBuffer);
+	*/
 	//, "ID3D11Device::CreateBuffer() failed.");
 }
 

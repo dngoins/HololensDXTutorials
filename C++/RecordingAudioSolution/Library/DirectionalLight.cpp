@@ -1,7 +1,7 @@
 #include "DirectionalLight.h"
 #include "VectorHelper.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	RTTI_DEFINITIONS(DirectionalLight)
 

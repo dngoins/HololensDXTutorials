@@ -1,7 +1,7 @@
 #include "RenderTarget.h"
 #include "Game.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     RTTI_DEFINITIONS(RenderTarget)
 

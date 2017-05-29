@@ -1,7 +1,7 @@
 #include "BlendStates.h"
 #include "GameException.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	ID3D11BlendState* BlendStates::AlphaBlending = nullptr;
 	ID3D11BlendState* BlendStates::MultiplicativeBlending = nullptr;

@@ -1,6 +1,6 @@
 #include "ColorHelper.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	std::random_device ColorHelper::sDevice;
 	std::default_random_engine ColorHelper::sGenerator(sDevice());

@@ -8,7 +8,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-namespace Library
+namespace MatMeshModLibrary
 {
     Model::Model( const std::string& filename, bool flipUVs)
 		: mMeshes(), mMaterials()

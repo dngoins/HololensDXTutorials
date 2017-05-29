@@ -1,7 +1,7 @@
 #include "GameComponent.h"
 #include "GameTime.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     RTTI_DEFINITIONS(GameComponent)
 

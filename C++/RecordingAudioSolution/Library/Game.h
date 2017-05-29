@@ -7,7 +7,7 @@
 #include "ServiceContainer.h"
 #include "RenderTarget.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     class Game : public RenderTarget
     {

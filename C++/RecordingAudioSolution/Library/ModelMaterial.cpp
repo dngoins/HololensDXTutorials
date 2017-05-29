@@ -3,7 +3,8 @@
 #include "Utility.h"
 #include <assimp/scene.h>
 
-namespace Library
+
+namespace MatMeshModLibrary
 {
     std::map<TextureType, UINT> ModelMaterial::sTextureTypeMappings;
 

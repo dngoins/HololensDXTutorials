@@ -1,6 +1,6 @@
 #include "DrawableGameComponent.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	RTTI_DEFINITIONS(DrawableGameComponent)
 

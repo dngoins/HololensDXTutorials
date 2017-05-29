@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "PointLight.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	class SpotLight : public PointLight
 	{

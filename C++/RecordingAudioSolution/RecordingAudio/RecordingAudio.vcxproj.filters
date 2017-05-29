@@ -149,6 +149,10 @@
   <ItemGroup>
     <None Include="RecordingAudio_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Assets\matMeshMod.dll" />
+    <None Include="assimp-vc140-mt.dll" />
+    <None Include="msvcp140d.dll" />
+    <None Include="vcruntime140d.dll" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Content\Textures\Lakerem2.jpg">
@@ -195,7 +199,10 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\TiyaBirdie.3mf.fbx">
+    <MeshContentTask Include="Assets\TiyaBirdie.fbx">
+      <Filter>Assets</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\MicMan.fbx">
       <Filter>Assets</Filter>
     </MeshContentTask>
   </ItemGroup>

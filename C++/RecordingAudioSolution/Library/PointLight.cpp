@@ -1,7 +1,7 @@
 #include "PointLight.h"
 #include "VectorHelper.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	RTTI_DEFINITIONS(PointLight)
 

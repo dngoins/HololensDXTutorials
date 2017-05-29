@@ -2,7 +2,7 @@
 
 #include "GameComponent.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     class Camera;
 

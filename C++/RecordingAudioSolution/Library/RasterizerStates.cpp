@@ -1,7 +1,7 @@
 #include "RasterizerStates.h"
 #include "GameException.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	ID3D11RasterizerState* RasterizerStates::BackCulling = nullptr;
 	ID3D11RasterizerState* RasterizerStates::FrontCulling = nullptr;

@@ -2,7 +2,7 @@
 
 #include "Common.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	class MathHelper
 	{

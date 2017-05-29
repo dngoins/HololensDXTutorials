@@ -2,7 +2,7 @@
 #include "DrawableGameComponent.h"
 #include "GameException.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	RTTI_DEFINITIONS(Game)
 
@@ -182,7 +182,7 @@ namespace Library
         ReleaseObject(mDirect3DDeviceContext);
         ReleaseObject(mDirect3DDevice);
 
-        UnregisterClass(mWindowClass.c_str(), mWindow.hInstance);
+        UnregisterClassW(mWindowClass.c_str(), mWindow.hInstance);
     }
 
     void Game::Initialize()
@@ -249,14 +249,14 @@ namespace Library
         mWindow.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
         mWindow.hCursor = LoadCursor(nullptr, IDC_ARROW);
         mWindow.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
-        mWindow.lpszClassName = mWindowClass.c_str();		
+//        mWindow.lpszClassName = mWindowClass.c_str();		
 
         RECT windowRectangle = { 0, 0, mScreenWidth, mScreenHeight };
         AdjustWindowRect(&windowRectangle, WS_OVERLAPPEDWINDOW, FALSE);
 
         RegisterClassEx(&mWindow);
         POINT center = CenterWindow(mScreenWidth, mScreenHeight);
-        mWindowHandle = CreateWindow(mWindowClass.c_str(), mWindowTitle.c_str(), WS_OVERLAPPEDWINDOW, center.x, center.y, windowRectangle.right - windowRectangle.left, windowRectangle.bottom - windowRectangle.top, nullptr, nullptr, mInstance, nullptr);
+        mWindowHandle = CreateWindowW(mWindowClass.c_str(), mWindowTitle.c_str(), WS_OVERLAPPEDWINDOW, center.x, center.y, windowRectangle.right - windowRectangle.left, windowRectangle.bottom - windowRectangle.top, nullptr, nullptr, mInstance, nullptr);
 
         ShowWindow(mWindowHandle, mShowCommand);
         UpdateWindow(mWindowHandle);

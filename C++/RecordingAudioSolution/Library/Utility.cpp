@@ -4,12 +4,12 @@
 #include <Shlwapi.h>
 #include <fstream>
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	std::string Utility::CurrentDirectory()
 	{
 		WCHAR buffer[MAX_PATH];
-		GetCurrentDirectory(MAX_PATH, buffer);
+		GetCurrentDirectoryW(MAX_PATH, buffer);
 		std::wstring currentDirectoryW(buffer);
 
 		return std::string(currentDirectoryW.begin(), currentDirectoryW.end());

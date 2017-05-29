@@ -4,7 +4,7 @@
 
 struct aiMesh;
 
-namespace Library
+namespace MatMeshModLibrary
 {
     class Material;
     class ModelMaterial;

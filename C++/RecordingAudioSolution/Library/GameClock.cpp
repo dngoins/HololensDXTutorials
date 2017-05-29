@@ -1,7 +1,7 @@
 #include "GameClock.h"
 #include "GameTime.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
     GameClock::GameClock()
         : mStartTime(), mCurrentTime(), mLastTime(), mFrequency()

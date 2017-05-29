@@ -1,6 +1,6 @@
 #include "GameTime.h"
 
-namespace Library
+namespace MatMeshModLibrary
 {
 	GameTime::GameTime(double totalGameTime, double elapsedGameTime)
 		: mTotalGameTime(totalGameTime), mElapsedGameTime(elapsedGameTime)

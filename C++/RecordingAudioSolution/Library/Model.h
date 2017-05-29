@@ -4,7 +4,7 @@
 
 struct aiNode;
 
-namespace Library
+namespace MatMeshModLibrary
 {
   
     class Mesh;

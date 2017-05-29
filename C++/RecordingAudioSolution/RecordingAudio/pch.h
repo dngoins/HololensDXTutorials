@@ -42,3 +42,4 @@ using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 #include "Common.h"
+#include "MatMeshMod/pch.h"
