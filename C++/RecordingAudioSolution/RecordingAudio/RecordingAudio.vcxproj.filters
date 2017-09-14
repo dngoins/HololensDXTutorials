@@ -147,12 +147,12 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RecordingAudio_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Assets\matMeshMod.dll" />
     <None Include="assimp-vc140-mt.dll" />
     <None Include="msvcp140d.dll" />
     <None Include="vcruntime140d.dll" />
+    <None Include="RecordingAudio_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Content\Textures\Lakerem2.jpg">

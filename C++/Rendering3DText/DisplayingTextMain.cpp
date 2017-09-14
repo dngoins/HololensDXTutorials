@@ -42,7 +42,7 @@ void DisplayingTextMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
 	std::wstring spriteFontFileName3 = L"ms-appx:///Content\\Nuwaupic_Line_Font_30_Regular.spritefont";
 	
 	//Load font file asynchronously
-	task<std::vector<byte>> loadVSTask = DX::ReadDataAsync(spriteFontFileName);
+	task<std::vector<byte>> loadVSTask = DX::ReadDataAsync(spriteFontFileName3);
 	task<void> createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
 		size_t fileSize = fileData.size();
 		uint8_t const* blob = fileData.data();
