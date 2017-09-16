@@ -150,6 +150,24 @@
     <Image Include="windows-sdk.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Content\Textures\coffee-logo.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\LandscapeImage22.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\Ring02.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\petals.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\ColorSnowFlakes.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
+    <Image Include="Content\Textures\GreenSpookyCastle.dds">
+      <Filter>Content\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

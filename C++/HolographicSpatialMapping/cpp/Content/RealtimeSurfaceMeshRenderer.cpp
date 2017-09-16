@@ -267,7 +267,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 	// Load a texture from resource	
 	std::wstring textureName[NUMBER_OF_TEXTURES];
 	
-	textureName[0] = L"Content\\Textures\\matrix_texture.dds";
+	textureName[0] = L"Content\\Textures\\greenspookycastle.dds";
 	Platform::String ^ pfstrTextureName = ref new String(textureName[0].data());
 	BasicLoader loader0(m_deviceResources->GetD3DDevice());
 
@@ -277,7 +277,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 		m_textureReady[0] = true;
 	});
 
-	textureName[1] = L"Content\\Textures\\marble.dds";
+	textureName[1] = L"Content\\Textures\\ColorSnowFlakes.dds";
 	Platform::String ^ pfstrTextureName1 = ref new String(textureName[1].data());
 	BasicLoader loader1(m_deviceResources->GetD3DDevice());
 
@@ -287,7 +287,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 		m_textureReady[1] = true;
 	});
 	
-	 textureName[2] = L"Content\\Textures\\stone.dds";
+	 textureName[2] = L"Content\\Textures\\coffee-logo.dds";
 	Platform::String ^ pfstrTextureName2 = ref new String(textureName[2].data());
 	BasicLoader loader2(m_deviceResources->GetD3DDevice());
 
@@ -297,7 +297,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 		m_textureReady[2] = true;
 	});
 
-	textureName[3] = L"Content\\Textures\\nuwaupian_holding_fire.dds";
+	textureName[3] = L"Content\\Textures\\LandscapeImage22.dds";
 	Platform::String ^ pfstrTextureName3 = ref new String(textureName[3].data());
 	BasicLoader loader3(m_deviceResources->GetD3DDevice());
 

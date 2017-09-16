@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <ProjectGuid>{bea6cfdc-1696-40b6-a809-359f0daad909}</ProjectGuid>
     <Keyword>HolographicApp</Keyword>
@@ -27,13 +27,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -157,9 +157,15 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bitmap1.bmp" />
+    <Image Include="Content\Textures\coffee-logo.dds" />
+    <Image Include="Content\Textures\ColorSnowFlakes.dds" />
+    <Image Include="Content\Textures\GreenSpookyCastle.dds" />
+    <Image Include="Content\Textures\LandscapeImage22.dds" />
     <Image Include="Content\Textures\Marble.dds" />
     <Image Include="Content\Textures\matrix_texture.dds" />
     <Image Include="Content\Textures\nuwaupian_holding_fire.dds" />
+    <Image Include="Content\Textures\petals.dds" />
+    <Image Include="Content\Textures\Ring02.dds" />
     <Image Include="Content\Textures\stone.dds" />
     <Image Include="matrix_texture.png" />
     <Image Include="microsoft-sdk.png" />
