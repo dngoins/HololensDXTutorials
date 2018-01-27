@@ -16,6 +16,7 @@ using namespace Windows::Graphics::Holographic;
 using namespace Windows::Perception::Spatial;
 using namespace Windows::UI::Input::Spatial;
 using namespace std::placeholders;
+using namespace Microsoft::WRL;
 
 // Loads and initializes application assets when the application is loaded.
 DisplayingTextMain::DisplayingTextMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
@@ -327,7 +328,20 @@ bool DisplayingTextMain::Render(Windows::Graphics::Holographic::HolographicFrame
 
 					mSpriteBatch->Begin();
 
-					mSpriteBatch->UpdateViewProjectionBuffer( cameraPose, m_referenceFrame->CoordinateSystem);
+					IInspectable* inspectable = reinterpret_cast<IInspectable*>(cameraPose);
+					ComPtr<ABI::Windows::Graphics::Holographic::IHolographicCameraPose> pose;
+					
+					IInspectable* inspectableCoords = reinterpret_cast<IInspectable*>(m_referenceFrame->CoordinateSystem);
+					ComPtr<ABI::Windows::Perception::Spatial::ISpatialCoordinateSystem> coords;
+
+					HRESULT hr = inspectable->QueryInterface(IID_PPV_ARGS(&pose));
+					_ASSERT(SUCCEEDED(hr));
+
+					hr = inspectableCoords->QueryInterface(IID_PPV_ARGS(&coords));
+					_ASSERT(SUCCEEDED(hr));
+
+					mSpriteBatch->UpdateViewProjectionBuffer( pose.Get(), coords.Get());
+
 					bool spriteCameraActive = mSpriteBatch->AttachViewProjectionBuffer();
 
 					if (spriteCameraActive)

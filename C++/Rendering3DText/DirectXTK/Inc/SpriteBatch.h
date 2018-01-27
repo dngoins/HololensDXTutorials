@@ -1,5 +1,3 @@
-//--------------------------------------------------------------------------------------
-// File: SpriteBatch.h
 //
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 // ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
@@ -23,7 +21,11 @@
 #include <DirectXColors.h>
 #include <functional>
 #include <memory>
-#include <WindowsNumerics.h>
+#include <windows.graphics.directx.direct3d11.interop.h>
+#include <windows.graphics.holographic.h>
+#include <windows.devices.perception.h>
+#include <windows.perception.spatial.h>
+#include <windows.perception.spatial.surfaces.h>
 
 
 namespace DirectX
@@ -45,11 +47,6 @@ namespace DirectX
         SpriteEffects_FlipVertically = 2,
         SpriteEffects_FlipBoth = SpriteEffects_FlipHorizontally | SpriteEffects_FlipVertically,
     };
-
-	struct ViewProjectionConstantBuffer
-	{
-		DirectX::XMFLOAT4X4 viewProjection[2];
-	};
 
     
     class SpriteBatch
@@ -89,14 +86,13 @@ namespace DirectX
 
         // Set viewport for sprite transformation
         void __cdecl SetViewport( const D3D11_VIEWPORT& viewPort );
-
-		void UpdateViewProjectionBuffer(
-			Windows::Graphics::Holographic::HolographicCameraPose^ cameraPose,
-			Windows::Perception::Spatial::SpatialCoordinateSystem^ coordinateSystem);
-
+		
+		// Holographic operations
+		void UpdateViewProjectionBuffer( 
+			ABI::Windows::Graphics::Holographic::IHolographicCameraPose * cameraPose,
+			ABI::Windows::Perception::Spatial::ISpatialCoordinateSystem * coordinateSystem);
 		bool AttachViewProjectionBuffer();
 
-		
     private:
         // Private implementation.
         class Impl;
@@ -105,7 +101,5 @@ namespace DirectX
 
         static const XMMATRIX MatrixIdentity;
         static const XMFLOAT2 Float2Zero;
-
-
     };
 }

@@ -404,7 +404,7 @@ namespace DirectX
 
             bool __cdecl IsKeyDown(Keys key) const
             {
-                if (key >= 0 && key <= 0xff)
+                if (key >= 0 && key <= 0xfe)
                 {
                     auto ptr = reinterpret_cast<const uint32_t*>(this);
                     unsigned int bf = 1u << (key & 0x1f);
@@ -440,6 +440,8 @@ namespace DirectX
             bool __cdecl IsKeyPressed(Keys key) const { return pressed.IsKeyDown(key); }
             bool __cdecl IsKeyReleased(Keys key) const { return released.IsKeyDown(key); }
 
+            State __cdecl GetLastState() const { return lastState; }
+
         public:
             State lastState;
         };
@@ -449,6 +451,9 @@ namespace DirectX
 
         // Reset the keyboard state
         void __cdecl Reset();
+
+        // Feature detection
+        bool __cdecl IsConnected() const;
 
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP) && defined(WM_USER)
         static void __cdecl ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam);

@@ -1960,10 +1960,10 @@ inline Matrix& Matrix::operator= (const XMFLOAT4X3& M)
 inline Matrix& Matrix::operator+= (const Matrix& M)
 {
     using namespace DirectX;
-    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_11) );
-    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_21) );
-    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_31) );
-    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_41) );
+    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_11) );
+    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_21) );
+    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_31) );
+    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_41) );
 
     XMVECTOR y1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&M._11) );
     XMVECTOR y2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&M._21) );
@@ -1985,10 +1985,10 @@ inline Matrix& Matrix::operator+= (const Matrix& M)
 inline Matrix& Matrix::operator-= (const Matrix& M)
 {
     using namespace DirectX;
-    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_11) );
-    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_21) );
-    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_31) );
-    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_41) );
+    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_11) );
+    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_21) );
+    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_31) );
+    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_41) );
 
     XMVECTOR y1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&M._11) );
     XMVECTOR y2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&M._21) );
@@ -2020,10 +2020,10 @@ inline Matrix& Matrix::operator*= (const Matrix& M)
 inline Matrix& Matrix::operator*= (float S)
 {
     using namespace DirectX;
-    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_11) );
-    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_21) );
-    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_31) );
-    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_41) );
+    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_11) );
+    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_21) );
+    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_31) );
+    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_41) );
 
     x1 = XMVectorScale( x1, S );
     x2 = XMVectorScale( x2, S );
@@ -2041,10 +2041,10 @@ inline Matrix& Matrix::operator/= (float S)
 {
     using namespace DirectX;
     assert( S != 0.f );
-    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_11) );
-    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_21) );
-    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_31) );
-    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_41) );
+    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_11) );
+    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_21) );
+    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_31) );
+    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_41) );
 
     float rs = 1.f / S;
 
@@ -2063,10 +2063,10 @@ inline Matrix& Matrix::operator/= (float S)
 inline Matrix& Matrix::operator/= (const Matrix& M)
 {
     using namespace DirectX;
-    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_11) );
-    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_21) );
-    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_31) );
-    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<XMFLOAT4*>(&_41) );
+    XMVECTOR x1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_11) );
+    XMVECTOR x2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_21) );
+    XMVECTOR x3 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_31) );
+    XMVECTOR x4 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&_41) );
 
     XMVECTOR y1 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&M._11) );
     XMVECTOR y2 = XMLoadFloat4( reinterpret_cast<const XMFLOAT4*>(&M._21) );
@@ -2384,7 +2384,7 @@ inline Matrix Matrix::CreateConstrainedBillboard( const Vector3& object, const V
 {
     using namespace DirectX;
 
-    static const XMVECTORF32 s_minAngle = { 0.99825467075f, 0.99825467075f, 0.99825467075f, 0.99825467075f }; // 1.0 - XMConvertToRadians( 0.1f );
+    static const XMVECTORF32 s_minAngle = { { { 0.99825467075f, 0.99825467075f, 0.99825467075f, 0.99825467075f } } }; // 1.0 - XMConvertToRadians( 0.1f );
 
     XMVECTOR O = XMLoadFloat3( &object );
     XMVECTOR C = XMLoadFloat3( &cameraPosition );
@@ -3633,6 +3633,7 @@ inline Viewport& Viewport::operator= (const RECT& rct)
     return *this;
 }
 
+#if defined(__d3d11_h__) || defined(__d3d11_x_h__)
 inline Viewport& Viewport::operator= (const D3D11_VIEWPORT& vp)
 {
     x = vp.TopLeftX; y = vp.TopLeftY;
@@ -3640,6 +3641,17 @@ inline Viewport& Viewport::operator= (const D3D11_VIEWPORT& vp)
     minDepth = vp.MinDepth; maxDepth = vp.MaxDepth;
     return *this;
 }
+#endif
+
+#if defined(__d3d12_h__) || defined(__d3d12_x_h__)
+inline Viewport& Viewport::operator= (const D3D12_VIEWPORT& vp)
+{
+    x = vp.TopLeftX; y = vp.TopLeftY;
+    width = vp.Width; height = vp.Height;
+    minDepth = vp.MinDepth; maxDepth = vp.MaxDepth;
+    return *this;
+}
+#endif
 
 //------------------------------------------------------------------------------
 // Viewport operations

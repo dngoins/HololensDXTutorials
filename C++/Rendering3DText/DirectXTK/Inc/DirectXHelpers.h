@@ -31,6 +31,7 @@
 
 #include <exception>
 #include <stdint.h>
+#include <windows.foundation.numerics.h>
 
 //
 // The core Direct3D headers provide the following helper C++ classes
@@ -56,6 +57,15 @@
 
 namespace DirectX
 {
+	class Numerics
+	{
+	public:
+		static XMFLOAT4X4 ToDirectXMatrix(ABI::Windows::Foundation::Numerics::Matrix4x4 matrix)
+		{
+			return XMFLOAT4X4(matrix.M11, matrix.M12, matrix.M13, matrix.M14, matrix.M21, matrix.M22, matrix.M23, matrix.M24, matrix.M31, matrix.M32, matrix.M33, matrix.M34, matrix.M41, matrix.M42, matrix.M43, matrix.M44);
+		}
+	};
+
     // simliar to std::lock_guard for exception-safe Direct3D resource locking
     class MapGuard : public D3D11_MAPPED_SUBRESOURCE
     {

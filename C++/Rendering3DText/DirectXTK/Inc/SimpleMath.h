@@ -13,22 +13,22 @@
 
 #pragma once
 
-#if defined(_XBOX_ONE) && defined(_TITLE)
-#include <d3d11_x.h>
-#else
-#include <d3d11_1.h>
+#if !defined(__d3d11_h__) && !defined(__d3d11_x_h__) && !defined(__d3d12_h__) && !defined(__d3d12_x_h__)
+#error include d3d11.h or d3d12.h before including SimpleMath.h
+#endif
+
+#if !defined(_XBOX_ONE) || !defined(_TITLE)
+#include <dxgi1_2.h>
 #endif
 
 #include <functional>
+#include <assert.h>
 #include <memory.h>
 
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
 
-#if (defined(_XBOX_ONE) && defined(_TITLE)) || (defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP))
-#include <Windows.Foundation.h>
-#endif
 
 namespace DirectX
 {
@@ -57,11 +57,8 @@ struct Rectangle
     explicit Rectangle(const RECT& rct) : x(rct.left), y(rct.top), width(rct.right - rct.left), height(rct.bottom - rct.top) {}
 
     operator RECT() { RECT rct; rct.left = x; rct.top = y; rct.right = (x + width); rct.bottom = (y + height); return rct; }
-#if (defined(_XBOX_ONE) && defined(_TITLE)) || (defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP))
-    operator ABI::Windows::Foundation::Rect() { ABI::Windows::Foundation::Rect r; r.X = float(x); r.Y = float(y); r.Width = float(width); r.Height = float(height); return r; }
 #ifdef __cplusplus_winrt
     operator Windows::Foundation::Rect() { return Windows::Foundation::Rect(float(x), float(y), float(width), float(height)); }
-#endif
 #endif
 
     // Comparison operators
@@ -111,6 +108,7 @@ struct Vector2 : public XMFLOAT2
     explicit Vector2(_In_reads_(2) const float *pArray) : XMFLOAT2(pArray) {}
     Vector2(FXMVECTOR V) { XMStoreFloat2( this, V ); }
     Vector2(const XMFLOAT2& V) { this->x = V.x; this->y = V.y; }
+    explicit Vector2(const XMVECTORF32& F) { this->x = F.f[0]; this->y = F.f[1]; }
 
     operator XMVECTOR() const { return XMLoadFloat2( this ); }
 
@@ -121,6 +119,7 @@ struct Vector2 : public XMFLOAT2
     // Assignment operators
     Vector2& operator= (const Vector2& V) { x = V.x; y = V.y; return *this; }
     Vector2& operator= (const XMFLOAT2& V) { x = V.x; y = V.y; return *this; }
+    Vector2& operator= (const XMVECTORF32& F) { x = F.f[0]; y = F.f[1]; return *this; }
     Vector2& operator+= (const Vector2& V);
     Vector2& operator-= (const Vector2& V);
     Vector2& operator*= (const Vector2& V);
@@ -217,6 +216,7 @@ struct Vector3 : public XMFLOAT3
     explicit Vector3(_In_reads_(3) const float *pArray) : XMFLOAT3(pArray) {}
     Vector3(FXMVECTOR V) { XMStoreFloat3( this, V ); }
     Vector3(const XMFLOAT3& V) { this->x = V.x; this->y = V.y; this->z = V.z; }
+    explicit Vector3(const XMVECTORF32& F) { this->x = F.f[0]; this->y = F.f[1]; this->z = F.f[2]; }
 
     operator XMVECTOR() const { return XMLoadFloat3( this ); }
 
@@ -227,6 +227,7 @@ struct Vector3 : public XMFLOAT3
     // Assignment operators
     Vector3& operator= (const Vector3& V) { x = V.x; y = V.y; z = V.z; return *this; }
     Vector3& operator= (const XMFLOAT3& V) { x = V.x; y = V.y; z = V.z; return *this; }
+    Vector3& operator= (const XMVECTORF32& F) { x = F.f[0]; y = F.f[1]; z = F.f[2]; return *this; }
     Vector3& operator+= (const Vector3& V);
     Vector3& operator-= (const Vector3& V);
     Vector3& operator*= (const Vector3& V);
@@ -330,6 +331,7 @@ struct Vector4 : public XMFLOAT4
     explicit Vector4(_In_reads_(4) const float *pArray) : XMFLOAT4(pArray) {}
     Vector4(FXMVECTOR V) { XMStoreFloat4( this, V ); }
     Vector4(const XMFLOAT4& V) { this->x = V.x; this->y = V.y; this->z = V.z; this->w = V.w; }
+    explicit Vector4(const XMVECTORF32& F) { this->x = F.f[0]; this->y = F.f[1]; this->z = F.f[2]; this->w = F.f[3]; }
 
     operator XMVECTOR() const { return XMLoadFloat4( this ); }
 
@@ -340,6 +342,7 @@ struct Vector4 : public XMFLOAT4
     // Assignment operators
     Vector4& operator= (const Vector4& V) { x = V.x; y = V.y; z = V.z; w = V.w; return *this; }
     Vector4& operator= (const XMFLOAT4& V) { x = V.x; y = V.y; z = V.z; w = V.w; return *this; }
+    Vector4& operator= (const XMVECTORF32& F) { x = F.f[0]; y = F.f[1]; z = F.f[2]; w = F.f[3]; return *this; }
     Vector4& operator+= (const Vector4& V);
     Vector4& operator-= (const Vector4& V);
     Vector4& operator*= (const Vector4& V);
@@ -584,6 +587,7 @@ struct Plane : public XMFLOAT4
     explicit Plane(_In_reads_(4) const float *pArray) : XMFLOAT4(pArray) {}
     Plane(FXMVECTOR V) { XMStoreFloat4( this, V ); }
     Plane(const XMFLOAT4& p) { this->x = p.x; this->y = p.y; this->z = p.z; this->w = p.w; }
+    explicit Plane(const XMVECTORF32& F) { this->x = F.f[0]; this->y = F.f[1]; this->z = F.f[2]; this->w = F.f[3]; }
 
     operator XMVECTOR() const { return XMLoadFloat4( this ); }
 
@@ -594,6 +598,7 @@ struct Plane : public XMFLOAT4
     // Assignment operators
     Plane& operator= (const Plane& p) { x = p.x; y = p.y; z = p.z; w = p.w; return *this; }
     Plane& operator= (const XMFLOAT4& p) { x = p.x; y = p.y; z = p.z; w = p.w; return *this; }
+    Plane& operator= (const XMVECTORF32& F) { x = F.f[0]; y = F.f[1]; z = F.f[2]; w = F.f[3]; return *this; }
 
     // Properties
     Vector3 Normal() const { return Vector3( x, y, z ); }
@@ -630,6 +635,7 @@ struct Quaternion : public XMFLOAT4
     explicit Quaternion(_In_reads_(4) const float *pArray) : XMFLOAT4(pArray) {}
     Quaternion(FXMVECTOR V) { XMStoreFloat4( this, V ); }
     Quaternion(const XMFLOAT4& q) { this->x = q.x; this->y = q.y; this->z = q.z; this->w = q.w; }
+    explicit Quaternion(const XMVECTORF32& F) { this->x = F.f[0]; this->y = F.f[1]; this->z = F.f[2]; this->w = F.f[3]; }
 
     operator XMVECTOR() const { return XMLoadFloat4( this ); }
 
@@ -640,6 +646,7 @@ struct Quaternion : public XMFLOAT4
     // Assignment operators
     Quaternion& operator= (const Quaternion& q) { x = q.x; y = q.y; z = q.z; w = q.w; return *this; }
     Quaternion& operator= (const XMFLOAT4& q) { x = q.x; y = q.y; z = q.z; w = q.w; return *this; }
+    Quaternion& operator= (const XMVECTORF32& F) { x = F.f[0]; y = F.f[1]; z = F.f[2]; w = F.f[3]; return *this; }
     Quaternion& operator+= (const Quaternion& q);
     Quaternion& operator-= (const Quaternion& q);
     Quaternion& operator*= (const Quaternion& q);
@@ -702,6 +709,7 @@ struct Color : public XMFLOAT4
     explicit Color(_In_reads_(4) const float *pArray) : XMFLOAT4(pArray) {}
     Color(FXMVECTOR V) { XMStoreFloat4( this, V ); }
     Color(const XMFLOAT4& c) { this->x = c.x; this->y = c.y; this->z = c.z; this->w = c.w; }
+    explicit Color(const XMVECTORF32& F) { this->x = F.f[0]; this->y = F.f[1]; this->z = F.f[2]; this->w = F.f[3]; }
 
     explicit Color( const DirectX::PackedVector::XMCOLOR& Packed );
         // BGRA Direct3D 9 D3DCOLOR packed color
@@ -719,6 +727,7 @@ struct Color : public XMFLOAT4
     // Assignment operators
     Color& operator= (const Color& c) { x = c.x; y = c.y; z = c.z; w = c.w; return *this; }
     Color& operator= (const XMFLOAT4& c) { x = c.x; y = c.y; z = c.z; w = c.w; return *this; }
+    Color& operator= (const XMVECTORF32& F) { x = F.f[0]; y = F.f[1]; z = F.f[2]; w = F.f[3]; return *this; }
     Color& operator= (const DirectX::PackedVector::XMCOLOR& Packed);
     Color& operator= (const DirectX::PackedVector::XMUBYTEN4& Packed);
     Color& operator+= (const Color& c);
@@ -825,14 +834,30 @@ public:
         width(float(rct.right - rct.left)),
         height(float(rct.bottom - rct.top)),
         minDepth(0.f), maxDepth(1.f) {}
+
+#if defined(__d3d11_h__) || defined(__d3d11_x_h__)
+    // Direct3D 11 interop
     explicit Viewport(const D3D11_VIEWPORT& vp) :
         x(vp.TopLeftX), y(vp.TopLeftY),
         width(vp.Width), height(vp.Height),
         minDepth(vp.MinDepth), maxDepth(vp.MaxDepth) {}
 
-    // Direct3D 11 interop
-    operator D3D11_VIEWPORT() { return *reinterpret_cast<D3D11_VIEWPORT*>(this); }
+    operator D3D11_VIEWPORT() { return *reinterpret_cast<const D3D11_VIEWPORT*>(this); }
     const D3D11_VIEWPORT* Get11() const { return reinterpret_cast<const D3D11_VIEWPORT*>(this); }
+    Viewport& operator= (const D3D11_VIEWPORT& vp);
+#endif
+
+#if defined(__d3d12_h__) || defined(__d3d12_x_h__)
+    // Direct3D 12 interop
+    explicit Viewport(const D3D12_VIEWPORT& vp) :
+        x(vp.TopLeftX), y(vp.TopLeftY),
+        width(vp.Width), height(vp.Height),
+        minDepth(vp.MinDepth), maxDepth(vp.MaxDepth) {}
+
+    operator D3D12_VIEWPORT() { return *reinterpret_cast<const D3D12_VIEWPORT*>(this); }
+    const D3D12_VIEWPORT* Get12() const { return reinterpret_cast<const D3D12_VIEWPORT*>(this); }
+    Viewport& operator= (const D3D12_VIEWPORT& vp);
+#endif
 
     // Comparison operators
     bool operator == ( const Viewport& vp ) const;
@@ -841,7 +866,6 @@ public:
     // Assignment operators
     Viewport& operator= (const Viewport& vp);
     Viewport& operator= (const RECT& rct);
-    Viewport& operator= (const D3D11_VIEWPORT& vp);
 
     // Viewport operations
     float AspectRatio() const;
