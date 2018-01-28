@@ -90,6 +90,7 @@ void HolographicSpatialMappingMain::SetHolographicSpace(HolographicSpace^ hologr
 
     // This code sample uses a DeviceAttachedFrameOfReference to have the Spatial Mapping surface observer
     // follow along with the device's location.
+	m_referenceStationaryFrame = m_locator->CreateStationaryFrameOfReferenceAtCurrentLocation();
     m_referenceFrame = m_locator->CreateAttachedFrameOfReferenceAtCurrentHeading();
 
     // Notes on spatial tracking APIs:
@@ -296,7 +297,10 @@ HolographicFrame^ HolographicSpatialMappingMain::Update()
     // Next, we get a coordinate system from the attached frame of reference that is
     // associated with the current frame. Later, this coordinate system is used for
     // for creating the stereo view matrices when rendering the sample content.
-    SpatialCoordinateSystem^ currentCoordinateSystem = m_referenceFrame->GetStationaryCoordinateSystemAtTimestamp(prediction->Timestamp);
+  
+	//SpatialCoordinateSystem^ currentCoordinateSystem = m_referenceStationaryFrame->CoordinateSystem;
+
+	  SpatialCoordinateSystem^ currentCoordinateSystem = m_referenceFrame->GetStationaryCoordinateSystemAtTimestamp(prediction->Timestamp);
 
     // Only create a surface observer when you need to - do not create a new one each frame.
     if (m_surfaceObserver == nullptr)

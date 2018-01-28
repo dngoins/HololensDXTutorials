@@ -38,7 +38,7 @@ void RecordingAudioMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
     //
     // TODO: Add code here to initialize your holographic content. 
 	//
-	m_modelRenderer = std::make_unique<ModelRenderer>(m_deviceResources, L"Assets\\TiyaBirdie.3mf.cmo", true);
+//	m_modelRenderer = std::make_unique<ModelRenderer>(m_deviceResources, L"Assets\\TiyaBirdie.3mf.cmo", true);
 
 	InitializeAudio();
 	InitializeCapture(holographicSpace, nullptr);

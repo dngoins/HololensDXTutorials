@@ -75,7 +75,6 @@
     <ClCompile Include="ToneSampleGenerator.cpp" />
     <ClCompile Include="MFSampleGenerator.cpp" />
     <ClCompile Include="Common\DeviceResourcesWindowed.cpp" />
-    <ClCompile Include="Content\ModelRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -100,7 +99,6 @@
     <ClInclude Include="ToneSampleGenerator.h" />
     <ClInclude Include="MFSampleGenerator.h" />
     <ClInclude Include="Common\DeviceResourcesWindowed.h" />
-    <ClInclude Include="Content\ModelRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Content\VertexShader.hlsl">
@@ -148,8 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Assets\matMeshMod.dll" />
-    <None Include="assimp-vc140-mt.dll" />
     <None Include="msvcp140d.dll" />
     <None Include="vcruntime140d.dll" />
     <None Include="RecordingAudio_TemporaryKey.pfx" />

@@ -104,6 +104,7 @@ namespace HolographicSpatialMapping
 
         // A reference frame attached to the holographic camera.
         Windows::Perception::Spatial::SpatialLocatorAttachedFrameOfReference^ m_referenceFrame;
+		Windows::Perception::Spatial::SpatialStationaryFrameOfReference ^ m_referenceStationaryFrame;
 
         // Event registration tokens.
         Windows::Foundation::EventRegistrationToken                         m_cameraAddedToken;

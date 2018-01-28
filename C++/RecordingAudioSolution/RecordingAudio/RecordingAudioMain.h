@@ -18,7 +18,7 @@
 #include "Content\SpatialInputHandler.h"
 #endif
 
-#include "Content\ModelRenderer.h"
+//#include "Content\ModelRenderer.h"
 
 #include "WASAPICapture.h"
 
@@ -98,7 +98,7 @@ namespace RecordingAudio
         // is used to demonstrate world-locked rendering.
         std::unique_ptr<SpinningCubeRenderer>                           m_spinningCubeRenderer;
 
-		std::unique_ptr<ModelRenderer>                               m_modelRenderer;
+		//std::unique_ptr<ModelRenderer>                               m_modelRenderer;
 
         // Listens for the Pressed spatial input event.
         std::shared_ptr<SpatialInputHandler>                            m_spatialInputHandler;

@@ -340,7 +340,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
 	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW =  D3D11_TEXTURE_ADDRESS_WRAP;
 	
 
 	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateSamplerState(&samplerDesc, &m_textureSampler));
@@ -434,6 +434,9 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 
         // Create a default rasterizer state descriptor.
         D3D11_RASTERIZER_DESC rasterizerDesc = CD3D11_RASTERIZER_DESC(D3D11_DEFAULT);
+		rasterizerDesc.AntialiasedLineEnable = true;
+		rasterizerDesc.CullMode = D3D11_CULL_NONE;
+		rasterizerDesc.FillMode = D3D11_FILL_SOLID;
 
         // Create the default rasterizer state.
         m_deviceResources->GetD3DDevice()->CreateRasterizerState(&rasterizerDesc, m_defaultRasterizerState.GetAddressOf());

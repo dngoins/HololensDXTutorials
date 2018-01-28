@@ -55,7 +55,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>d2d1.lib;d3d11.lib;dxgi.lib;dwrite.lib;windowscodecs.lib;WindowsApp.lib;OneCore.lib;assimp-vc140-mt.lib;MFuuid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d2d1.lib;d3d11.lib;dxgi.lib;dwrite.lib;windowscodecs.lib;WindowsApp.lib;OneCore.lib;MFuuid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\MatMeshMod_Library\;$(SolutionDir)lib;$(SolutionDir)external\assimp\lib\assimp_debug-dll_win32\;%(AdditionalLibraryDirectories);$(VCInstallDir)\lib\store;$(VCInstallDir)\lib;$(SolutionDir)Library\bin\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -110,7 +110,6 @@
     <ClInclude Include="AppView.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Common\DeviceResourcesWindowed.h" />
-    <ClInclude Include="Content\ModelRenderer.h" />
     <ClInclude Include="DeviceState.h" />
     <ClInclude Include="MFSampleGenerator.h" />
     <ClInclude Include="PlotData.h" />
@@ -130,7 +129,6 @@
   <ItemGroup>
     <ClCompile Include="AppView.cpp" />
     <ClCompile Include="Common\DeviceResourcesWindowed.cpp" />
-    <ClCompile Include="Content\ModelRenderer.cpp" />
     <ClCompile Include="MFSampleGenerator.cpp" />
     <ClCompile Include="RecordingAudioMain.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp" />
@@ -148,12 +146,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Assets\matMeshMod.dll">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="assimp-vc140-mt.dll">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
     <None Include="msvcp140d.dll">
       <DeploymentContent>true</DeploymentContent>
     </None>
