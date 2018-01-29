@@ -23,6 +23,8 @@
 #ifdef DRAW_SAMPLE_CONTENT
 #include "Content\SpatialInputHandler.h"
 #include "Content\RealtimeSurfaceMeshRenderer.h"
+//#include "Content\Skybox.h"
+
 #endif
 
 // Updates, renders, and presents holographic content using Direct3D.
@@ -88,6 +90,8 @@ namespace HolographicSpatialMapping
 
         // A data handler for surface meshes.
         std::unique_ptr<WindowsHolographicCodeSamples::RealtimeSurfaceMeshRenderer> m_meshCollection;
+		//std::unique_ptr<WindowsHolographicCodeSamples::Skybox>				m_skyBox;
+
 #endif
 
         // Cached pointer to device resources.

@@ -33,7 +33,7 @@ using namespace std::placeholders;
 
 // Loads and initializes application assets when the application is loaded.
 HolographicSpatialMappingMain::HolographicSpatialMappingMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
-    m_deviceResources(deviceResources)
+    m_deviceResources(deviceResources), m_meshCollection(nullptr) //, m_skyBox(nullptr)
 {
     // Register to be notified if the device is lost or recreated.
     m_deviceResources->RegisterDeviceNotify(this);
@@ -50,6 +50,8 @@ void HolographicSpatialMappingMain::SetHolographicSpace(HolographicSpace^ hologr
     m_meshCollection = std::make_unique<RealtimeSurfaceMeshRenderer>(m_deviceResources);
 
     m_spatialInputHandler = std::make_unique<SpatialInputHandler>();
+
+//	m_skyBox = std::make_unique<Skybox>(m_deviceResources, 1024);
 #endif
 
     // Use the default SpatialLocator to track the motion of the device.
@@ -140,6 +142,9 @@ HolographicSpatialMappingMain::~HolographicSpatialMappingMain()
     m_deviceResources->RegisterDeviceNotify(nullptr);
 
     UnregisterHolographicEventHandlers();
+
+	m_meshCollection.release();
+	//m_skyBox.release();
 }
 
 void HolographicSpatialMappingMain::UpdateSurfaceObserverPosition(SpatialCoordinateSystem^ coordinateSystem)
@@ -400,6 +405,8 @@ bool HolographicSpatialMappingMain::Render(Windows::Graphics::Holographic::Holog
             {
                 // Draw the sample hologram.
                 m_meshCollection->Render(pCameraResources->IsRenderingStereoscopic(), m_drawWireframe, mTextureIndex);
+
+			//	m_skyBox->Render(pCameraResources->IsRenderingStereoscopic(), m_drawWireframe, mTextureIndex);
             }
 #endif
             atLeastOneCameraRendered = true;

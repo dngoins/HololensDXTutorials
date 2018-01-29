@@ -31,6 +31,13 @@ internal:
         _Out_opt_ ID3D11ShaderResourceView** textureView
         );
 
+	concurrency::task<void> LoadTextureCubeAsync(
+		_In_ Platform::String^ filename,
+		_Out_opt_ ID3D11Texture2D** texture,
+		_Out_opt_ ID3D11ShaderResourceView** textureView
+	);
+
+
     void LoadShader(
         _In_ Platform::String^ filename,
         _In_reads_opt_(layoutDescNumElements) D3D11_INPUT_ELEMENT_DESC layoutDesc[],
@@ -156,6 +163,15 @@ private:
         _Out_opt_ ID3D11ShaderResourceView** textureView,
         _In_opt_ Platform::String^ debugName
         );
+
+	void CreateTextureCube(
+		_In_ bool decodeAsDDS,
+		_In_reads_bytes_(dataSize) byte* data,
+		_In_ uint32 dataSize,
+		_Out_opt_ ID3D11Texture2D** texture,
+		_Out_opt_ ID3D11ShaderResourceView** textureView,
+		_In_opt_ Platform::String^ debugName
+	);
 
     void CreateInputLayout(
         _In_reads_bytes_(bytecodeSize) byte* bytecode,

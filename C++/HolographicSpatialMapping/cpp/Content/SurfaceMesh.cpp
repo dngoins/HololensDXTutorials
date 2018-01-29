@@ -17,18 +17,32 @@
 #include "Common\StepTimer.h"
 #include "GetDataFromIBuffer.h"
 #include "SurfaceMesh.h"
+#include "BasicLoader.h"
 
 using namespace WindowsHolographicCodeSamples;
 using namespace DirectX;
 using namespace Windows::Perception::Spatial;
 using namespace Windows::Perception::Spatial::Surfaces;
 using namespace Windows::Foundation::Numerics;
+using namespace WindowsHolographicCodeSamples;
+
+using namespace Concurrency;
+using namespace DX;
+using namespace Windows::Foundation::Collections;
+using namespace Windows::ApplicationModel::Resources::Core;
+using namespace Platform;
 
 
-SurfaceMesh::SurfaceMesh()
+SurfaceMesh::SurfaceMesh() 
 {
-    ReleaseDeviceDependentResources();
-}
+	ReleaseDeviceDependentResources();
+	//XMStoreFloat4x4(&mScaleMatrix, XMMatrixScaling(scale, scale, scale));
+
+	//CreateDeviceDependentResources(m_deviceResources->GetD3DDevice());
+
+	for (UINT i = 0; i < NUMBER_OF_TEXTURES; i++)
+		m_textureReady[i] = false;
+};
 
 SurfaceMesh::~SurfaceMesh()
 {
@@ -209,6 +223,11 @@ void SurfaceMesh::Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool 
             );
     }
 
+	//if(m_textureSampler != NULL)
+	context->PSSetSamplers(0, 1, m_textureSampler.GetAddressOf());
+
+	context->PSSetShaderResources(1, 1, m_colorTexture[0].GetAddressOf());
+		
     context->PSSetConstantBuffers(
         0,
         1,
@@ -384,7 +403,7 @@ void SurfaceMesh::CreateVertexResources(ID3D11Device* device)
 void SurfaceMesh::CreateDeviceDependentResources(ID3D11Device* device)
 {	
     CreateVertexResources(device);
-
+	CreateCubeResources(device);
     // Create a constant buffer to control mesh position.
     CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelNormalConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
     DX::ThrowIfFailed(
@@ -396,6 +415,33 @@ void SurfaceMesh::CreateDeviceDependentResources(ID3D11Device* device)
         );
 
     m_loadingComplete = true;
+}
+
+void SurfaceMesh::CreateCubeResources(ID3D11Device* device)
+{
+//	auto m_usingVprtShaders = m_deviceResources->GetDeviceSupportsVprt();
+
+	// Load a texture from resource	
+	std::wstring textureName[NUMBER_OF_TEXTURES];
+
+	textureName[0] = L"Content\\Textures\\nuwaupian_holding_fire3.dds";
+	Platform::String ^ pfstrTextureName = ref new String(textureName[0].data());
+	BasicLoader loader0(device);
+
+	auto loadTextureTask0 = loader0.LoadTextureCubeAsync(pfstrTextureName, m_texture[0].GetAddressOf(), m_colorTexture[0].GetAddressOf());
+
+	loadTextureTask0.then([this]() {
+		m_textureReady[0] = true;
+	});
+
+	D3D11_SAMPLER_DESC samplerDesc;
+	ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	
+	DX::ThrowIfFailed(device->CreateSamplerState(&samplerDesc, &m_textureSampler));
 }
 
 void SurfaceMesh::ReleaseVertexResources()
@@ -411,6 +457,18 @@ void SurfaceMesh::ReleaseDeviceDependentResources()
     ReleaseVertexResources();
 
     m_modelTransformBuffer.Reset();
+	m_textureSampler.Reset();
+	
+	m_vertexPositions.Reset();
+	m_vertexNormals.Reset();
+	m_vertexCoords.Reset();
+	m_triangleIndices.Reset();
+	
+	for (UINT i = 0; i < NUMBER_OF_TEXTURES; i++)
+	{
+		m_texture[i].Reset();
+		m_colorTexture[i].Reset();
+	}
 
-    m_loadingComplete = false;
+    
 }

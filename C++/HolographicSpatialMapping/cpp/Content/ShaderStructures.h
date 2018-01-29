@@ -19,6 +19,11 @@ namespace WindowsHolographicCodeSamples
         DirectX::XMFLOAT4X4 modelToWorld;
     };
 
+	struct CBufferPerObject
+	{
+		DirectX::XMFLOAT4X4 WorldViewProjection;
+	};
+
     // Assert that the constant buffer remains 16-byte aligned (best practice).
     // If shader structure members are not aligned to a 4-float boundary, data may
     // not show up where it is expected by the time it is read by the shader.

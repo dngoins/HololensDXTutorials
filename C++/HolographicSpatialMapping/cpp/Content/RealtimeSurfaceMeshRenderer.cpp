@@ -306,8 +306,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 	loadTextureTask3.then([this]() {
 		m_textureReady[3] = true;
 	});
-
-
+	
 	//textureName[4] = L"Content\\Textures\\matrix_texture.dds";
 	//Platform::String ^ pfstrTextureName4 = ref new String(textureName[4].data());
 	//BasicLoader loader4(m_deviceResources->GetD3DDevice());
@@ -318,23 +317,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 	//	m_textureReady[4] = true;
 	//});
 
-	//
-	//textureName[5] = L"Content\\Textures\\matrix_texture.dds";
-	//Platform::String ^ pfstrTextureName5 = ref new String(textureName[5].data());
-	//BasicLoader loader5(m_deviceResources->GetD3DDevice());
-
-	//auto loadTextureTask5 = loader5.LoadTextureAsync(pfstrTextureName5, m_texture[5].GetAddressOf(), m_colorTexture[5].GetAddressOf());
-
-	//loadTextureTask5.then([this]() {
-	//	m_textureReady[5] = true;
-	//});
-
-
-
-	/*	DX::ThrowIfFailed(DirectX::CreateWICTextureFromFile(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), textureName2.c_str(), nullptr, m_colorTexture.GetAddressOf()));
-		m_textureReady = true;
-	*/
-
+	
 	D3D11_SAMPLER_DESC samplerDesc;
 	ZeroMemory(&samplerDesc, sizeof(samplerDesc));
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;

@@ -268,6 +268,184 @@ void BasicLoader::CreateTexture(
     }
 }
 
+
+void BasicLoader::CreateTextureCube(
+	_In_ bool decodeAsDDS,
+	_In_reads_bytes_(dataSize) byte* data,
+	_In_ uint32 dataSize,
+	_Out_opt_ ID3D11Texture2D** texture,
+	_Out_opt_ ID3D11ShaderResourceView** textureView,
+	_In_opt_ Platform::String^ debugName
+)
+{
+	ComPtr<ID3D11ShaderResourceView> shaderResourceView;
+	ComPtr<ID3D11Texture2D> texture2D;
+
+	if (decodeAsDDS)
+	{
+		ComPtr<ID3D11Resource> resource;
+
+		if (textureView == nullptr)
+		{
+			CreateDDSTextureFromMemory(
+				m_d3dDevice.Get(),
+				data,
+				dataSize,
+				&resource,
+				nullptr
+			);
+		}
+		else
+		{
+			CreateDDSTextureFromMemory(
+				m_d3dDevice.Get(),
+				data,
+				dataSize,
+				&resource,
+				&shaderResourceView
+			);
+		}
+
+		DX::ThrowIfFailed(
+			resource.As(&texture2D)
+		);
+	}
+	else
+	{
+		if (m_wicFactory.Get() == nullptr)
+		{
+			// A WIC factory object is required in order to load texture
+			// assets stored in non-DDS formats.  If BasicLoader was not
+			// initialized with one, create one as needed.
+			DX::ThrowIfFailed(
+				CoCreateInstance(
+					CLSID_WICImagingFactory,
+					nullptr,
+					CLSCTX_INPROC_SERVER,
+					IID_PPV_ARGS(&m_wicFactory)
+				)
+			);
+		}
+
+		ComPtr<IWICStream> stream;
+		DX::ThrowIfFailed(
+			m_wicFactory->CreateStream(&stream)
+		);
+
+		DX::ThrowIfFailed(
+			stream->InitializeFromMemory(
+				data,
+				dataSize
+			)
+		);
+
+		ComPtr<IWICBitmapDecoder> bitmapDecoder;
+		DX::ThrowIfFailed(
+			m_wicFactory->CreateDecoderFromStream(
+				stream.Get(),
+				nullptr,
+				WICDecodeMetadataCacheOnDemand,
+				&bitmapDecoder
+			)
+		);
+
+		ComPtr<IWICBitmapFrameDecode> bitmapFrame;
+		DX::ThrowIfFailed(
+			bitmapDecoder->GetFrame(0, &bitmapFrame)
+		);
+
+		ComPtr<IWICFormatConverter> formatConverter;
+		DX::ThrowIfFailed(
+			m_wicFactory->CreateFormatConverter(&formatConverter)
+		);
+
+		DX::ThrowIfFailed(
+			formatConverter->Initialize(
+				bitmapFrame.Get(),
+				GUID_WICPixelFormat32bppPBGRA,
+				WICBitmapDitherTypeNone,
+				nullptr,
+				0.0,
+				WICBitmapPaletteTypeCustom
+			)
+		);
+
+		uint32 width;
+		uint32 height;
+		DX::ThrowIfFailed(
+			bitmapFrame->GetSize(&width, &height)
+		);
+
+		std::unique_ptr<byte[]> bitmapPixels(new byte[width * height * 4]);
+		DX::ThrowIfFailed(
+			formatConverter->CopyPixels(
+				nullptr,
+				width * 4,
+				width * height * 4,
+				bitmapPixels.get()
+			)
+		);
+
+		std::vector<D3D11_SUBRESOURCE_DATA> initialDatas{ 0 };
+
+		for (UINT i = 0; i < 6; i++)
+		{
+			D3D11_SUBRESOURCE_DATA initialData = { 0 };
+			ZeroMemory(&initialData, sizeof(initialData));			
+			initialData.pSysMem = bitmapPixels.get();
+			initialData.SysMemPitch = width * 4;
+			initialData.SysMemSlicePitch = 0;
+			initialDatas.push_back(initialData);
+		}
+
+		CD3D11_TEXTURE2D_DESC textureDesc( 
+			DXGI_FORMAT_B8G8R8A8_UNORM,
+			width * 10,
+			height * 10,
+			6,
+			1
+		);
+
+		DX::ThrowIfFailed(
+			m_d3dDevice->CreateTexture2D(
+				&textureDesc,
+				initialDatas.data(),
+				texture2D.GetAddressOf()
+			)
+		);
+
+		
+		if (textureView != nullptr)
+		{
+			CD3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc (
+				texture2D.Get(),
+				D3D11_SRV_DIMENSION_TEXTURECUBE,
+				DXGI_FORMAT_B8G8R8A8_UNORM, 0, 1, 0, 6
+				
+			);
+
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreateShaderResourceView(
+					texture2D.Get(),
+					&shaderResourceViewDesc,
+					&shaderResourceView
+				)
+			);
+		}
+	}
+
+	SetDebugName(texture2D.Get(), debugName);
+
+	if (texture != nullptr)
+	{
+		*texture = texture2D.Detach();
+	}
+	if (textureView != nullptr)
+	{
+		*textureView = shaderResourceView.Detach();
+	}
+}
+
 void BasicLoader::CreateInputLayout(
     _In_reads_bytes_(bytecodeSize) byte* bytecode,
     _In_ uint32 bytecodeSize,
@@ -407,6 +585,25 @@ task<void> BasicLoader::LoadTextureAsync(
             filename
             );
     });
+}
+
+task<void> BasicLoader::LoadTextureCubeAsync(
+	_In_ Platform::String^ filename,
+	_Out_opt_ ID3D11Texture2D** texture,
+	_Out_opt_ ID3D11ShaderResourceView** textureView
+)
+{
+	return m_basicReaderWriter->ReadDataAsync(filename).then([=](const Platform::Array<byte>^ textureData)
+	{
+		CreateTextureCube(
+			GetExtension(filename) == "dds",
+			textureData->Data,
+			textureData->Length,
+			texture,
+			textureView,
+			filename
+		);
+	});
 }
 
 void BasicLoader::LoadShader(

@@ -10,6 +10,7 @@
 //*********************************************************
 
 Texture2D ColorTexture :register(t0);
+TextureCube SkyboxTexture :register(t1);
 SamplerState ColorSampler : register(s0);
 
 
@@ -48,7 +49,7 @@ struct PixelShaderInput
 	min16float3 worldNorm   : NORMAL0;
 	min16float3 color       : COLOR0;
 	uint        idx         : TEXCOORD1;
-	min16float2 textCoord	: TEXCOORD0;
+	min16float2 textCoord	: TEXCOORD0;	
 	uint        rtvId       : SV_RenderTargetArrayIndex;
 
 };
@@ -60,7 +61,9 @@ min16float4 main(PixelShaderInput input) : SV_TARGET
     min16float3 lightDiffuseColorValue = min16float3(1.f, 1.f, 1.f);
 
 min16float4 colorResult =   ColorTexture.Sample(ColorSampler, input.textCoord); // min16float4(input.textCoord.x, input.textCoord.y,(input.textCoord.x * input.textCoord.x) / input.textCoord.y, 1.0f); //  ColorTexture.Sample(ColorSampler, input.textCoord);
+min16float4 cubeResult = SkyboxTexture.Sample(ColorSampler, float3(input.worldPos.x, -input.worldPos.y, -input.worldPos.z));
 
+colorResult = cubeResult; // colorResult * cubeResult;
 //colorResult = min16float4(colorResult.x, colorResult.y, colorResult.z, .50f);
 
 	//min16float3 objectBaseColorValue = min16float3(input.color);

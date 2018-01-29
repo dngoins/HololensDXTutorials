@@ -168,6 +168,8 @@
     <Image Include="Content\Textures\GreenSpookyCastle.dds">
       <Filter>Content\Textures</Filter>
     </Image>
+    <Image Include="Content\Textures\nuwaupian_holding_fire3.dds" />
+    <Image Include="matrix_texture.dds" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

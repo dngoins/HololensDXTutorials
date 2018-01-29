@@ -14,6 +14,7 @@
 #include "Common\DeviceResources.h"
 #include "ShaderStructures.h"
 
+
 using namespace Windows::Storage::Streams;
 
 namespace WindowsHolographicCodeSamples
@@ -21,7 +22,7 @@ namespace WindowsHolographicCodeSamples
     class SurfaceMesh final
     {
     public:
-        SurfaceMesh();
+		SurfaceMesh();
         ~SurfaceMesh();
 
         void UpdateSurface(Windows::Perception::Spatial::Surfaces::SpatialSurfaceMesh^ surface);
@@ -48,6 +49,7 @@ namespace WindowsHolographicCodeSamples
 		
     private:
 		byte* GetPointerToPixelData(IBuffer^ buffer);
+		void CreateCubeResources(ID3D11Device* device);
 
         void CreateDirectXBuffer(
             ID3D11Device* device,
@@ -58,17 +60,23 @@ namespace WindowsHolographicCodeSamples
 
         Windows::Perception::Spatial::Surfaces::SpatialSurfaceMesh^ m_surfaceMesh = nullptr;
 
-        Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexPositions;
-        Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexNormals;
-		Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexCoords;
-        Microsoft::WRL::ComPtr<ID3D11Buffer> m_triangleIndices;
-        Microsoft::WRL::ComPtr<ID3D11Buffer> m_modelTransformBuffer;
+		bool m_textureReady[1];
+		const static UINT NUMBER_OF_TEXTURES = 1;
+				
+        Microsoft::WRL::ComPtr<ID3D11Buffer>				m_vertexPositions;
+        Microsoft::WRL::ComPtr<ID3D11Buffer>				m_vertexNormals;
+		Microsoft::WRL::ComPtr<ID3D11Buffer>				m_vertexCoords;
+        Microsoft::WRL::ComPtr<ID3D11Buffer>				m_triangleIndices;
+        Microsoft::WRL::ComPtr<ID3D11Buffer>				m_modelTransformBuffer;
+		Microsoft::WRL::ComPtr<ID3D11SamplerState>			m_textureSampler;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D>				m_texture[NUMBER_OF_TEXTURES];
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_colorTexture[NUMBER_OF_TEXTURES];
+		
+        ModelNormalConstantBuffer							m_constantBufferData;
 
-        ModelNormalConstantBuffer  m_constantBufferData;
-
-        unsigned int m_vertexStride = 0;
-        unsigned int m_normalStride = 0;
-		unsigned int m_coordinateStride = 0;
+        unsigned int										m_vertexStride = 0;
+        unsigned int										m_normalStride = 0;
+		unsigned int										m_coordinateStride = 0;
 
         DXGI_FORMAT  m_indexFormat  = DXGI_FORMAT_UNKNOWN;
 
@@ -80,6 +88,6 @@ namespace WindowsHolographicCodeSamples
         float  m_colorFadeTimeout   = -1.f;
         uint32 m_indexCount         = 0;
 		float	m_scaleFactor		= 1.f;
-
+				
     };
 }
