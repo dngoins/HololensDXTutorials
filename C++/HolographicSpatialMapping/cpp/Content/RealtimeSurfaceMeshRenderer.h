@@ -21,6 +21,8 @@
 #include <ppltasks.h>
 
 
+#define NUMBER_OF_TEXTURES 3
+
 namespace WindowsHolographicCodeSamples
 {
 
@@ -46,7 +48,7 @@ namespace WindowsHolographicCodeSamples
             Windows::Foundation::Collections::IMapView<Platform::Guid,
             Windows::Perception::Spatial::Surfaces::SpatialSurfaceInfo^>^ const& surfaceCollection);
 		bool m_textureReady[4];
-		const static UINT NUMBER_OF_TEXTURES = 4;
+		
 
     private:
         Concurrency::task<void> AddOrUpdateSurfaceAsync(Platform::Guid id, Windows::Perception::Spatial::Surfaces::SpatialSurfaceInfo^ newSurface);

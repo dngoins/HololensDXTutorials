@@ -201,6 +201,8 @@ void RealtimeSurfaceMeshRenderer::Render(bool isStereo, bool useWireframe, UINT 
             nullptr,
             0
         );
+
+		context->PSSetShaderResources(0, 1, m_colorTexture[index].GetAddressOf());
     }
     else
     {
@@ -219,7 +221,7 @@ void RealtimeSurfaceMeshRenderer::Render(bool isStereo, bool useWireframe, UINT 
 	}
 
 	//if(m_colorTexture != NULL)
-	context->PSSetShaderResources(0, 1, m_colorTexture[index].GetAddressOf());
+	
 
 	//if(m_textureSampler != NULL)
 	context->PSSetSamplers(0, 1, m_textureSampler.GetAddressOf());
@@ -235,7 +237,7 @@ void RealtimeSurfaceMeshRenderer::Render(bool isStereo, bool useWireframe, UINT 
             auto& id = pair.first;
             auto& surfaceMesh = pair.second;
 
-            surfaceMesh.Draw(device, context, m_usingVprtShaders, isStereo);
+            surfaceMesh.Draw(device, context, m_usingVprtShaders, isStereo, index);
         }
     }
 }
@@ -297,27 +299,17 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 		m_textureReady[2] = true;
 	});
 
-	textureName[3] = L"Content\\Textures\\LandscapeImage22.dds";
-	Platform::String ^ pfstrTextureName3 = ref new String(textureName[3].data());
-	BasicLoader loader3(m_deviceResources->GetD3DDevice());
+	//textureName[3] = L"Content\\Textures\\marble.dds";
+	//Platform::String ^ pfstrTextureName3 = ref new String(textureName[3].data());
+	//BasicLoader loader3(m_deviceResources->GetD3DDevice());
 
-	auto loadTextureTask3 = loader3.LoadTextureAsync(pfstrTextureName3, m_texture[3].GetAddressOf(), m_colorTexture[3].GetAddressOf());
+	//auto loadTextureTask3 = loader3.LoadTextureAsync(pfstrTextureName3, m_texture[3].GetAddressOf(), m_colorTexture[3].GetAddressOf());
 
-	loadTextureTask3.then([this]() {
-		m_textureReady[3] = true;
-	});
-	
-	//textureName[4] = L"Content\\Textures\\matrix_texture.dds";
-	//Platform::String ^ pfstrTextureName4 = ref new String(textureName[4].data());
-	//BasicLoader loader4(m_deviceResources->GetD3DDevice());
-
-	//auto loadTextureTask4 = loader4.LoadTextureAsync(pfstrTextureName4, m_texture[4].GetAddressOf(), m_colorTexture[4].GetAddressOf());
-
-	//loadTextureTask4.then([this]() {
-	//	m_textureReady[4] = true;
+	//loadTextureTask3.then([this]() {
+	//	m_textureReady[3] = true;
 	//});
 
-	
+	//
 	D3D11_SAMPLER_DESC samplerDesc;
 	ZeroMemory(&samplerDesc, sizeof(samplerDesc));
 	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;

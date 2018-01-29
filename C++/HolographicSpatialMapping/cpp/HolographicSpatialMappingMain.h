@@ -27,6 +27,7 @@
 
 #endif
 
+
 // Updates, renders, and presents holographic content using Direct3D.
 namespace HolographicSpatialMapping
 {

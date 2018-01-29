@@ -114,18 +114,6 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="bitmap1.bmp" />
-    <Image Include="Content\Textures\matrix_texture.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\Marble.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\nuwaupian_holding_fire.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\stone.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
     <Image Include="microsoft-sdk.png">
       <Filter>Assets</Filter>
     </Image>
@@ -150,26 +138,11 @@
     <Image Include="windows-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Content\Textures\coffee-logo.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\LandscapeImage22.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\Ring02.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\petals.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\ColorSnowFlakes.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\GreenSpookyCastle.dds">
-      <Filter>Content\Textures</Filter>
-    </Image>
-    <Image Include="Content\Textures\nuwaupian_holding_fire3.dds" />
     <Image Include="matrix_texture.dds" />
+    <Image Include="Content\Textures\ColorSnowFlakes.dds" />
+    <Image Include="Content\Textures\GreenSpookyCastle.dds" />
+    <Image Include="Content\Textures\coffee-logo.dds" />
+    <Image Include="Content\Textures\NuwaupianHoldingFire512.dds" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

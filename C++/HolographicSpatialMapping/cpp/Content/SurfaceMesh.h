@@ -14,6 +14,7 @@
 #include "Common\DeviceResources.h"
 #include "ShaderStructures.h"
 
+#define NUMBER_OF_TEXTURES_CUBES 1
 
 using namespace Windows::Storage::Streams;
 
@@ -33,7 +34,7 @@ namespace WindowsHolographicCodeSamples
             Windows::Perception::Spatial::SpatialCoordinateSystem^ baseCoordinateSystem
             );
 
-        void Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool usingVprtShaders, bool isStereo);
+        void Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool usingVprtShaders, bool isStereo, UINT index=0);
 
         void CreateVertexResources(ID3D11Device* device);
         void CreateDeviceDependentResources(ID3D11Device* device);
@@ -60,17 +61,18 @@ namespace WindowsHolographicCodeSamples
 
         Windows::Perception::Spatial::Surfaces::SpatialSurfaceMesh^ m_surfaceMesh = nullptr;
 
-		bool m_textureReady[1];
-		const static UINT NUMBER_OF_TEXTURES = 1;
-				
+
+
+		bool m_textureReady[NUMBER_OF_TEXTURES_CUBES];
+						
         Microsoft::WRL::ComPtr<ID3D11Buffer>				m_vertexPositions;
         Microsoft::WRL::ComPtr<ID3D11Buffer>				m_vertexNormals;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>				m_vertexCoords;
         Microsoft::WRL::ComPtr<ID3D11Buffer>				m_triangleIndices;
         Microsoft::WRL::ComPtr<ID3D11Buffer>				m_modelTransformBuffer;
 		Microsoft::WRL::ComPtr<ID3D11SamplerState>			m_textureSampler;
-		Microsoft::WRL::ComPtr<ID3D11Texture2D>				m_texture[NUMBER_OF_TEXTURES];
-		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_colorTexture[NUMBER_OF_TEXTURES];
+		Microsoft::WRL::ComPtr<ID3D11Texture2D>				m_texture[NUMBER_OF_TEXTURES_CUBES];
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_colorTexture[NUMBER_OF_TEXTURES_CUBES];
 		
         ModelNormalConstantBuffer							m_constantBufferData;
 

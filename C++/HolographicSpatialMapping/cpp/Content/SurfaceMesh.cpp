@@ -40,7 +40,7 @@ SurfaceMesh::SurfaceMesh()
 
 	//CreateDeviceDependentResources(m_deviceResources->GetD3DDevice());
 
-	for (UINT i = 0; i < NUMBER_OF_TEXTURES; i++)
+	for (UINT i = 0; i < NUMBER_OF_TEXTURES_CUBES; i++)
 		m_textureReady[i] = false;
 };
 
@@ -166,7 +166,7 @@ void SurfaceMesh::UpdateTransform(
 // Does an indexed, instanced draw call after setting the IA stage to use the mesh's geometry, and
 // after setting up the constant buffer for the surface mesh.
 // The caller is responsible for the rest of the shader pipeline.
-void SurfaceMesh::Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool usingVprtShaders, bool isStereo)
+void SurfaceMesh::Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool usingVprtShaders, bool isStereo, UINT index)
 {	
     if (m_updateNeeded)
     {
@@ -226,7 +226,12 @@ void SurfaceMesh::Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool 
 	//if(m_textureSampler != NULL)
 	context->PSSetSamplers(0, 1, m_textureSampler.GetAddressOf());
 
-	context->PSSetShaderResources(1, 1, m_colorTexture[0].GetAddressOf());
+	UINT _index = index;
+	if (_index >= NUMBER_OF_TEXTURES_CUBES)
+	{
+		_index = 0;
+	}
+	context->PSSetShaderResources(0, 1, m_colorTexture[index].GetAddressOf());
 		
     context->PSSetConstantBuffers(
         0,
@@ -422,9 +427,10 @@ void SurfaceMesh::CreateCubeResources(ID3D11Device* device)
 //	auto m_usingVprtShaders = m_deviceResources->GetDeviceSupportsVprt();
 
 	// Load a texture from resource	
-	std::wstring textureName[NUMBER_OF_TEXTURES];
+	std::wstring textureName[NUMBER_OF_TEXTURES_CUBES];
 
-	textureName[0] = L"Content\\Textures\\nuwaupian_holding_fire3.dds";
+	//memory is a concern here 512 works fine 1024 - yields out of memory sometimes depending on apps running
+	textureName[0] = L"Content\\Textures\\NuwaupianHoldingFire512.dds";
 	Platform::String ^ pfstrTextureName = ref new String(textureName[0].data());
 	BasicLoader loader0(device);
 
@@ -433,6 +439,34 @@ void SurfaceMesh::CreateCubeResources(ID3D11Device* device)
 	loadTextureTask0.then([this]() {
 		m_textureReady[0] = true;
 	});
+
+	//textureName[1] = L"Content\\Textures\\marble512.dds";
+	// pfstrTextureName = ref new String(textureName[1].data());
+	//
+	//auto loadTextureTask1 = loader0.LoadTextureCubeAsync(pfstrTextureName, m_texture[1].GetAddressOf(), m_colorTexture[1].GetAddressOf());
+
+	//loadTextureTask1.then([this]() {
+	//	m_textureReady[1] = true;
+	//});
+
+	/*textureName[2] = L"Content\\Textures\\stone512.dds";
+	pfstrTextureName = ref new String(textureName[2].data());
+	
+	auto loadTextureTask2 = loader0.LoadTextureCubeAsync(pfstrTextureName, m_texture[2].GetAddressOf(), m_colorTexture[2].GetAddressOf());
+
+	loadTextureTask2.then([this]() {
+		m_textureReady[2] = true;
+	});
+*/
+	/*textureName[3] = L"Content\\Textures\\matrixmapLarge.dds";
+	pfstrTextureName = ref new String(textureName[3].data());
+	
+	auto loadTextureTask3 = loader0.LoadTextureCubeAsync(pfstrTextureName, m_texture[3].GetAddressOf(), m_colorTexture[3].GetAddressOf());
+
+	loadTextureTask3.then([this]() {
+		m_textureReady[3] = true;
+	});*/
+
 
 	D3D11_SAMPLER_DESC samplerDesc;
 	ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -464,7 +498,7 @@ void SurfaceMesh::ReleaseDeviceDependentResources()
 	m_vertexCoords.Reset();
 	m_triangleIndices.Reset();
 	
-	for (UINT i = 0; i < NUMBER_OF_TEXTURES; i++)
+	for (UINT i = 0; i < NUMBER_OF_TEXTURES_CUBES; i++)
 	{
 		m_texture[i].Reset();
 		m_colorTexture[i].Reset();

@@ -388,7 +388,7 @@ void BasicLoader::CreateTextureCube(
 
 		std::vector<D3D11_SUBRESOURCE_DATA> initialDatas{ 0 };
 
-		for (UINT i = 0; i < 6; i++)
+		for (UINT i = 0; i < 1; i++)
 		{
 			D3D11_SUBRESOURCE_DATA initialData = { 0 };
 			ZeroMemory(&initialData, sizeof(initialData));			
@@ -400,9 +400,9 @@ void BasicLoader::CreateTextureCube(
 
 		CD3D11_TEXTURE2D_DESC textureDesc( 
 			DXGI_FORMAT_B8G8R8A8_UNORM,
-			width * 10,
-			height * 10,
-			6,
+			width,
+			height,
+			1,
 			1
 		);
 
@@ -420,7 +420,7 @@ void BasicLoader::CreateTextureCube(
 			CD3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc (
 				texture2D.Get(),
 				D3D11_SRV_DIMENSION_TEXTURECUBE,
-				DXGI_FORMAT_B8G8R8A8_UNORM, 0, 1, 0, 6
+				DXGI_FORMAT_B8G8R8A8_UNORM, 0, 1, 0, 1
 				
 			);
 

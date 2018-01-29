@@ -332,7 +332,7 @@ HolographicFrame^ HolographicSpatialMappingMain::Update()
 			//click through various textures
 			++mTextureIndex;
 
-			if (mTextureIndex >= m_meshCollection->NUMBER_OF_TEXTURES) mTextureIndex = 0;
+			if (mTextureIndex >= NUMBER_OF_TEXTURES) mTextureIndex = 0;
 		}
     }
 #endif
