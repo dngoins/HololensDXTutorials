@@ -231,7 +231,7 @@ void SurfaceMesh::Draw(ID3D11Device* device, ID3D11DeviceContext* context, bool 
 	{
 		_index = 0;
 	}
-	context->PSSetShaderResources(0, 1, m_colorTexture[index].GetAddressOf());
+	context->PSSetShaderResources(0, 1, m_colorTexture[_index].GetAddressOf());
 		
     context->PSSetConstantBuffers(
         0,
