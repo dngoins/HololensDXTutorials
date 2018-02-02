@@ -269,7 +269,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 	// Load a texture from resource	
 	std::wstring textureName[NUMBER_OF_TEXTURES];
 	
-	textureName[0] = L"Content\\Textures\\greenspookycastle.dds";
+	textureName[0] = L"Content\\Textures\\stone512.dds";
 	Platform::String ^ pfstrTextureName = ref new String(textureName[0].data());
 	BasicLoader loader0(m_deviceResources->GetD3DDevice());
 
@@ -279,7 +279,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 		m_textureReady[0] = true;
 	});
 
-	textureName[1] = L"Content\\Textures\\ColorSnowFlakes.dds";
+	/*textureName[1] = L"Content\\Textures\\ColorSnowFlakes.dds";
 	Platform::String ^ pfstrTextureName1 = ref new String(textureName[1].data());
 	BasicLoader loader1(m_deviceResources->GetD3DDevice());
 
@@ -297,7 +297,7 @@ void RealtimeSurfaceMeshRenderer::CreateDeviceDependentResources()
 
 	loadTextureTask2.then([this]() {
 		m_textureReady[2] = true;
-	});
+	});*/
 
 	//textureName[3] = L"Content\\Textures\\marble.dds";
 	//Platform::String ^ pfstrTextureName3 = ref new String(textureName[3].data());

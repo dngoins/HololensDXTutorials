@@ -139,10 +139,7 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="matrix_texture.dds" />
-    <Image Include="Content\Textures\ColorSnowFlakes.dds" />
-    <Image Include="Content\Textures\GreenSpookyCastle.dds" />
-    <Image Include="Content\Textures\coffee-logo.dds" />
-    <Image Include="Content\Textures\NuwaupianHoldingFire512.dds" />
+    <Image Include="Content\Textures\stone512.dds" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

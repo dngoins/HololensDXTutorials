@@ -157,10 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bitmap1.bmp" />
-    <Image Include="Content\Textures\coffee-logo.dds" />
-    <Image Include="Content\Textures\ColorSnowFlakes.dds" />
-    <Image Include="Content\Textures\GreenSpookyCastle.dds" />
-    <Image Include="Content\Textures\NuwaupianHoldingFire512.dds" />
+    <Image Include="Content\Textures\stone512.dds" />
     <Image Include="matrix_texture.dds" />
     <Image Include="matrix_texture.png" />
     <Image Include="microsoft-sdk.png" />

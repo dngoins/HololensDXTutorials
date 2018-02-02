@@ -430,7 +430,7 @@ void SurfaceMesh::CreateCubeResources(ID3D11Device* device)
 	std::wstring textureName[NUMBER_OF_TEXTURES_CUBES];
 
 	//memory is a concern here 512 works fine 1024 - yields out of memory sometimes depending on apps running
-	textureName[0] = L"Content\\Textures\\NuwaupianHoldingFire512.dds";
+	textureName[0] = L"Content\\Textures\\stone512.dds";
 	Platform::String ^ pfstrTextureName = ref new String(textureName[0].data());
 	BasicLoader loader0(device);
 

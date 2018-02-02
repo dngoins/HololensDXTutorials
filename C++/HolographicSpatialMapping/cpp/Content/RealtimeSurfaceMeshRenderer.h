@@ -21,7 +21,7 @@
 #include <ppltasks.h>
 
 
-#define NUMBER_OF_TEXTURES 3
+#define NUMBER_OF_TEXTURES 1
 
 namespace WindowsHolographicCodeSamples
 {
