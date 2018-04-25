@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HolographicSpatialMapping.AppView">
-      <uap:VisualElements DisplayName="HolographicSpatialMapping" Square150x150Logo="Assets\squareTile-sdk.png" Square44x44Logo="Assets\smallTile-sdk.png" Description="HolographicSpatialMapping" BackgroundColor="#464646">
+      <uap:VisualElements DisplayName="HolographicSpatialMapping2" Square150x150Logo="Assets\squareTile-sdk.png" Square44x44Logo="Assets\smallTile-sdk.png" Description="HolographicSpatialMapping2" BackgroundColor="#464646">
         <uap:SplashScreen Image="splash-sdk.png" />
         <uap:DefaultTile>
           <uap:ShowNameOnTiles>

@@ -21,12 +21,16 @@
 //#include "Content\ModelRenderer.h"
 
 #include "WASAPICapture.h"
+#include <windows.graphics.h>
+#include <windows.graphics.holographic.h>
 
 #define OSC_START_X  100
 #define OSC_START_Y  100
 #define OSC_X_LENGTH 700
 #define OSC_TOTAL_HEIGHT 200
 
+using namespace ABI::Windows::Graphics;
+using namespace ABI::Windows::Graphics::Holographic;
 
 // Updates, renders, and presents holographic content using Direct3D.
 namespace RecordingAudio
@@ -39,7 +43,11 @@ namespace RecordingAudio
 
     class RecordingAudioMain : public DX::IDeviceNotify
     {
+
+
     public:
+
+		
         RecordingAudioMain(const std::shared_ptr<DX::DeviceResources>& deviceResources);
         ~RecordingAudioMain();
 
@@ -48,7 +56,7 @@ namespace RecordingAudio
         void SetHolographicSpace(Windows::Graphics::Holographic::HolographicSpace^ holographicSpace);
 
         // Starts the holographic frame and updates the content.
-        Windows::Graphics::Holographic::HolographicFrame^ Update();
+        Windows::Graphics::Holographic::IHolographicFrame^ Update();
 
         // Renders holograms, including world-locked content.
         bool Render(Windows::Graphics::Holographic::HolographicFrame^ holographicFrame);
