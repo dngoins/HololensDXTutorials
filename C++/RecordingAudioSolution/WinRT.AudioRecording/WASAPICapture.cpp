@@ -311,14 +311,14 @@ HRESULT WASAPICapture::CreateWAVFile()
 {
     // Create the WAV file, appending a number if file already exists
 	//TODO: Change to documents library
-    concurrency::task<StorageFile^>( KnownFolders::CameraRoll->CreateFileAsync( AUDIO_FILE_NAME, CreationCollisionOption::GenerateUniqueName )).then(
+    concurrency::task<StorageFile^>( KnownFolders::MusicLibrary->CreateFileAsync( AUDIO_FILE_NAME, CreationCollisionOption::GenerateUniqueName )).then(
         [this]( StorageFile^ file )
     {
         if (nullptr == file)
         {
             ThrowIfFailed( E_INVALIDARG );
         }
-
+		TRACE(L"File created: %s", file->Path->Data());
         return file->OpenAsync( FileAccessMode::ReadWrite );
     })
 
@@ -539,13 +539,13 @@ HRESULT WASAPICapture::OnStopCapture( IMFAsyncResult* pResult )
 HRESULT WASAPICapture::FinishCaptureAsync()
 {
     // We should be flushing when this is called
-    if (m_DeviceStateChanged->GetState() == DeviceState::DeviceStateFlushing)
-    {
+    //if (m_DeviceStateChanged->GetState() == DeviceState::DeviceStateFlushing)
+    //{
         return MFPutWorkItem2( MFASYNC_CALLBACK_QUEUE_MULTITHREADED, 0, &m_xFinishCapture, nullptr ); 
-    }
+    //}
 
     // We are in the wrong state
-    return E_NOT_VALID_STATE;
+    //return E_NOT_VALID_STATE;
 }
 
 //

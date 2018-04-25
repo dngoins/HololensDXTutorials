@@ -1,11 +1,21 @@
 ﻿#include "pch.h"
 #include "Utility.h"
 
+
 using namespace WinRT_AudioRecording;
 using namespace Platform;
 
 using namespace winrt;
 using namespace Microsoft::WRL;
+
+using namespace Platform;
+using namespace ABI::Windows::Foundation;
+using namespace ABI::Windows::Foundation::Numerics;
+using namespace ABI::Windows::Graphics::Holographic;
+using namespace ABI::Windows::Globalization;
+
+using namespace std::placeholders;
+
 
 Utility::Utility( Platform::String ^ _fileName) : fileName(_fileName->Begin(), _fileName->End()),
 	m_IsMFLoaded(false)
@@ -75,10 +85,14 @@ void Utility::InitializeCapture()
 		TRACE(L"Failed to create Device State listener\n");
 		ThrowIfFailed(E_FAIL);
 	}
-		
+
+	auto token = m_StateChangedEvent->StateChangedEvent += ref new WinRT_AudioRecording::DeviceStateChangedHandler(this, &WinRT_AudioRecording::Utility::OnStateChangedEvent);
+
+	
+
 	// Configure user based properties
 	CAPTUREDEVICEPROPS props;
-	props.IsLowLatency = true;
+	props.IsLowLatency = false;
 	hr = m_spCapture->SetProperties(props);
 	if (!SUCCEEDED(hr))
 	{	
@@ -128,6 +142,12 @@ void Utility::StopCapture()
 	{
 		_stopCapture();
 	}
+	else
+	{
+		InitializeAudio();
+		InitializeCapture();
+		_stopCapture();
+	}
 }
 
 void Utility::_stopCapture()
@@ -151,3 +171,95 @@ void Utility::_stopCapture()
 
 }
 
+
+void WinRT_AudioRecording::Utility::OnStateChangedEvent(Platform::Object ^sender, WinRT_AudioRecording::DeviceStateChangedEventArgs ^e)
+{		
+	// Handle state specific messages
+	switch (e->State)
+	{
+	case DeviceState::DeviceStateInitialized:
+		//m_spCapture->StartCaptureAsync();
+		TRACE(L"Device is Initialized and ready...\n");
+		break;
+
+	case DeviceState::DeviceStateCapturing:	
+		TRACE(L"Capture Started (minimum latency) \n");			
+		break;
+
+	case DeviceState::DeviceStateDiscontinuity:
+	{
+		TRACE(L"Discontinuity...\n");
+	}
+	break;
+
+	case DeviceState::DeviceStateFlushing:
+		TRACE(L"Device state flushing\n");
+		break;
+
+	case DeviceState::DeviceStateStopped:
+		// For the stopped state, completely tear down the audio device
+		m_spCapture = nullptr;
+		m_spCapture.Reset();
+		
+		TRACE(L"Device stopped\n");
+		break;
+
+	case DeviceState::DeviceStateInError:
+		HRESULT hr = e->hr;
+				
+		m_spCapture = nullptr;
+		m_spCapture.Reset();
+
+		//wchar_t hrVal[11];
+		//swprintf_s(hrVal, 11, L"0x%08x\0", hr);
+		//String^ strHRVal = ref new String(hrVal);
+
+		// Specifically handle a couple of known errors
+		switch (hr)
+		{
+		case __HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND):
+			TRACE(L"ERROR: File Not Found (%d)\n Check the Sound control panel for an active recording device.\n", hr);
+			break;
+
+		case AUDCLNT_E_RESOURCES_INVALIDATED:
+			TRACE(L"ERROR: Endpoint Lost Access To Resources (%d)\n", hr);			
+			break;
+
+		case E_ACCESSDENIED:
+			TRACE(L"ERROR: Access Denied (%d)\nCheck 'Settings->Permissions' for access to Microphone.\n", hr);			
+			break;
+
+		default:
+			TRACE(L"Error: %d\n", hr);
+			break;
+			
+		}
+	}
+}
+
+void WinRT_AudioRecording::Utility::UpdateMediaControlUI(DeviceState deviceState)
+{
+	switch (deviceState)
+	{
+	case DeviceState::DeviceStateCapturing:
+		//btnStartCapture->IsEnabled = false;
+		//btnStopCapture->IsEnabled = true;
+		//toggleMinimumLatency->IsEnabled = false;
+		break;
+
+	case DeviceState::DeviceStateStopped:
+		//btnStartCapture->IsEnabled = true;
+		//btnStopCapture->IsEnabled = false;
+		//toggleMinimumLatency->IsEnabled = true;
+		break;
+
+	case DeviceState::DeviceStateInitialized:
+	case DeviceState::DeviceStateStarting:
+	case DeviceState::DeviceStateStopping:
+	case DeviceState::DeviceStateFlushing:
+	case DeviceState::DeviceStateInError:
+		//btnStartCapture->IsEnabled = false;
+		//btnStopCapture->IsEnabled = false;
+		break;
+	}
+}

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:mobile="http://schemas.microsoft.com/appx/manifest/mobile/windows10" IgnorableNamespaces="uap mp mobile">
   <Identity Name="1a50af90-821c-4966-84ca-145e9f3c35fb" Publisher="CN=dngoi" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="1a50af90-821c-4966-84ca-145e9f3c35fb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -26,6 +26,8 @@
     <Capability Name="internetClient" />
     <uap:Capability Name="musicLibrary" />
     <uap:Capability Name="picturesLibrary" />
+    <uap:Capability Name="videosLibrary" />
     <DeviceCapability Name="microphone" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

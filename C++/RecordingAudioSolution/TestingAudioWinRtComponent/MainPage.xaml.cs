@@ -28,7 +28,7 @@ namespace TestingAudioWinRtComponent
         public MainPage()
         {
             this.InitializeComponent();
-            microhpone = new Utility("Test.mp3");    
+             microhpone = new Utility("Test.mp3");    
         }
 
         private void StartRecording_Click(object sender, RoutedEventArgs e)
