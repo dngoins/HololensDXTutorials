@@ -317,7 +317,7 @@ HRESULT WASAPICapture::CreateWAVFile()
 {
     // Create the WAV file, appending a number if file already exists
 	//TODO: Change to documents library
-    concurrency::task<StorageFile^>( KnownFolders::CameraRoll->CreateFileAsync( AUDIO_FILE_NAME, CreationCollisionOption::GenerateUniqueName )).then(
+    concurrency::task<StorageFile^>( KnownFolders::MusicLibrary->CreateFileAsync( AUDIO_FILE_NAME, CreationCollisionOption::GenerateUniqueName )).then(
         [this]( StorageFile^ file )
     {
         if (nullptr == file)

@@ -149,6 +149,9 @@
     <None Include="msvcp140d.dll" />
     <None Include="vcruntime140d.dll" />
     <None Include="RecordingAudio_TemporaryKey.pfx" />
+    <None Include="Assets\Model.mtl">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Content\Textures\Lakerem2.jpg">

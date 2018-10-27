@@ -13,6 +13,14 @@ namespace DX
         }
     }
 
+	inline void ThrowIfFailedMsg(HRESULT hr, const char* const& message = "")
+	{
+		if (FAILED(hr))
+		{
+			throw std::exception::exception(message);
+		}
+	}
+
 
 #if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 	inline Concurrency::task<Windows::Storage::StorageFolder^> GetLocalDirectoryAsync()

@@ -337,6 +337,14 @@ void DX::DeviceResources::Present(HolographicFrame^ frame)
 
 			auto coordinates = locator->CreateStationaryFrameOfReferenceAtCurrentLocation()->CoordinateSystem;
 
+			auto tryTransform = coordinates->TryGetTransformTo(coordinates);
+			if (tryTransform != nullptr)
+			{
+				// If the transform can be acquired, this spatial mesh is valid right now and
+				// we have the information we need to draw it this frame.
+				m_world = XMLoadFloat4x4(&tryTransform->Value);
+			}
+
 			// Get a container object with the view and projection matrices for the given
 			// pose in the given coordinate system.
 			Platform::IBox<HolographicStereoTransform>^ viewTransformContainer = cameraPose->TryGetViewTransform(coordinates);

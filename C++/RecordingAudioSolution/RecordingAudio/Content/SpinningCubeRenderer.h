@@ -38,16 +38,18 @@ namespace RecordingAudio
         std::shared_ptr<DX::DeviceResources>            m_deviceResources;
 
         // Direct3D resources for cube geometry.
-        Microsoft::WRL::ComPtr<ID3D11InputLayout>       m_inputLayout;
-        Microsoft::WRL::ComPtr<ID3D11Buffer>            m_vertexBuffer;
-        Microsoft::WRL::ComPtr<ID3D11Buffer>            m_indexBuffer;
-        Microsoft::WRL::ComPtr<ID3D11VertexShader>      m_vertexShader;
-        Microsoft::WRL::ComPtr<ID3D11GeometryShader>    m_geometryShader;
-        Microsoft::WRL::ComPtr<ID3D11PixelShader>       m_pixelShader;
-        Microsoft::WRL::ComPtr<ID3D11Buffer>            m_modelConstantBuffer;
-
-        // System resources for cube geometry.
-        ModelConstantBuffer                             m_modelConstantBufferData;
+        Microsoft::WRL::ComPtr<ID3D11InputLayout>			m_inputLayout;
+        Microsoft::WRL::ComPtr<ID3D11Buffer>				m_vertexBuffer;
+        Microsoft::WRL::ComPtr<ID3D11Buffer>				m_indexBuffer;
+        Microsoft::WRL::ComPtr<ID3D11VertexShader>			m_vertexShader;
+        Microsoft::WRL::ComPtr<ID3D11GeometryShader>		m_geometryShader;
+        Microsoft::WRL::ComPtr<ID3D11PixelShader>			m_pixelShader;
+        Microsoft::WRL::ComPtr<ID3D11Buffer>				m_modelConstantBuffer;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_ColorTexture;
+		Microsoft::WRL::ComPtr<ID3D11SamplerState>			m_ColorSampler;
+        
+		// System resources for cube geometry.
+        Mesh::ModelNormalConstantBuffer                 m_modelConstantBufferData;
         uint32                                          m_indexCount = 0;
 
         // Variables used with the rendering loop.

@@ -23,7 +23,7 @@ struct GeometryShaderInput
 // Per-vertex data passed to the rasterizer.
 struct GeometryShaderOutput
 {
-    min16float4 screenPos   : SV_POSITION;
+	min16float4 screenPos   : SV_POSITION;
     min16float3 worldPos    : POSITION0;
     min16float3 worldNorm   : NORMAL0;
     min16float3 color       : COLOR0;

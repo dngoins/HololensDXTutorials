@@ -43,12 +43,12 @@ void RecordingAudioMain::SetHolographicSpace(HolographicSpace^ holographicSpace)
 	InitializeAudio();
 	InitializeCapture(holographicSpace, nullptr);
 
-#ifdef DRAW_SAMPLE_CONTENT
+//#ifdef DRAW_SAMPLE_CONTENT
     // Initialize the sample hologram.
     m_spinningCubeRenderer = std::make_unique<SpinningCubeRenderer>(m_deviceResources);
 
     m_spatialInputHandler = std::make_unique<SpatialInputHandler>();
-#endif
+//#endif
 
     // Use the default SpatialLocator to track the motion of the device.
     m_locator = SpatialLocator::GetDefault();
@@ -166,7 +166,7 @@ HolographicFrame^ RecordingAudioMain::Update()
     // for creating the stereo view matrices when rendering the sample content.
     SpatialCoordinateSystem^ currentCoordinateSystem = m_referenceFrame->CoordinateSystem;
 
-#ifdef DRAW_SAMPLE_CONTENT
+//#ifdef DRAW_SAMPLE_CONTENT
     // Check for new input state since the last frame.
     SpatialInteractionSourceState^ pointerState = m_spatialInputHandler->CheckForInput();
     if (pointerState != nullptr)
@@ -193,7 +193,7 @@ HolographicFrame^ RecordingAudioMain::Update()
 			}
 		}
     }
-#endif
+//#endif
 
     m_timer.Tick([&] ()
     {
@@ -205,10 +205,11 @@ HolographicFrame^ RecordingAudioMain::Update()
         // run as many times as needed to get to the current step.
         //
 //		m_modelRenderer->Update(m_timer);
+		m_spinningCubeRenderer->Update(m_timer);
 
-#ifdef DRAW_SAMPLE_CONTENT
-        m_spinningCubeRenderer->Update(m_timer);
-#endif
+//#ifdef DRAW_SAMPLE_CONTENT
+//        m_spinningCubeRenderer->Update(m_timer);
+//#endif
     });
 
     // We complete the frame update by using information about our content positioning
@@ -216,7 +217,7 @@ HolographicFrame^ RecordingAudioMain::Update()
 
     for (auto cameraPose : prediction->CameraPoses)
     {
-#ifdef DRAW_SAMPLE_CONTENT
+//#ifdef DRAW_SAMPLE_CONTENT
         // The HolographicCameraRenderingParameters class provides access to set
         // the image stabilization parameters.
         HolographicCameraRenderingParameters^ renderingParameters = holographicFrame->GetRenderingParameters(cameraPose);
@@ -233,7 +234,7 @@ HolographicFrame^ RecordingAudioMain::Update()
             currentCoordinateSystem,
             m_spinningCubeRenderer->GetPosition()
             );
-#endif
+//#endif
     }
 
     // The holographic frame will be used to get up-to-date view and projection matrices and
@@ -320,10 +321,10 @@ bool RecordingAudioMain::Render(Windows::Graphics::Holographic::HolographicFrame
             {
 		//		m_modelRenderer->Render(pCameraResources->IsRenderingStereoscopic());
 
-#ifdef DRAW_SAMPLE_CONTENT
+//#ifdef DRAW_SAMPLE_CONTENT
 				// Draw the sample hologram.
-                m_spinningCubeRenderer->Render(this->m_showRecording);
-#endif
+				m_spinningCubeRenderer->Render(this->m_showRecording);
+//#endif
             }
 
             atLeastOneCameraRendered = true;
@@ -359,9 +360,9 @@ void RecordingAudioMain::OnDeviceLost()
 {
 //	m_modelRenderer->ReleaseDeviceDependentResources();
 
-#ifdef DRAW_SAMPLE_CONTENT
+//#ifdef DRAW_SAMPLE_CONTENT
     m_spinningCubeRenderer->ReleaseDeviceDependentResources();
-#endif
+//#endif
 }
 
 // Notifies classes that use Direct3D device resources that the device resources
@@ -370,9 +371,9 @@ void RecordingAudioMain::OnDeviceRestored()
 {
 //	m_modelRenderer->CreateDeviceDependentResources();
 	
-#ifdef DRAW_SAMPLE_CONTENT
+//#ifdef DRAW_SAMPLE_CONTENT
     m_spinningCubeRenderer->CreateDeviceDependentResources();
-#endif
+//#endif
 }
 
 void RecordingAudioMain::OnLocatabilityChanged(SpatialLocator^ sender, Object^ args)

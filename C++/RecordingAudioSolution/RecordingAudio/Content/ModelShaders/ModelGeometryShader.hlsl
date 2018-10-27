@@ -12,9 +12,9 @@
 // Per-vertex data from the vertex shader.
 struct GeometryShaderInput
 {
-    min16float4 pos         : SV_POSITION;
-    min16float3 color       : COLOR0;
-    uint        instId      : TEXCOORD0;
+	min16float4 pos     : SV_POSITION;
+	min16float3 color   : COLOR0;
+	uint        instId  : TEXCOORD0;  // SV_InstanceID % 2
 };
 
 // Per-vertex data passed to the rasterizer.

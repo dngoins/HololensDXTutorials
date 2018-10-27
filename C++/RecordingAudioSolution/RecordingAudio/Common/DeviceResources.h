@@ -92,7 +92,7 @@ namespace DX
 
 		XMMATRIX												m_view;
 		XMMATRIX												m_projection;
-
+		XMMATRIX												m_world;
 	
     };
 }

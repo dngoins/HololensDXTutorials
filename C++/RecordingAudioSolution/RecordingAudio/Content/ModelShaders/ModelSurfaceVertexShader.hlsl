@@ -118,7 +118,7 @@ VertexShaderOutput main(VertexShaderInput input)
     min16float4 normalVector = min16float4(input.norm, min16float(0.f));
     output.worldNorm = normalize((min16float3)mul(normalVector, normalToWorld));
 
-	output.textCoord = float2(pos.x, pos.y); // input.textCoord;
+	output.textCoord = min16float2(pos.x, pos.y); // input.textCoord;
     return output;
 }
 
