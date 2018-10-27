@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinRT.AudioRecording", "Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingAudioWinRtComponent", "TestingAudioWinRtComponent\TestingAudioWinRtComponent.csproj", "{B7F413DE-9947-49EC-A005-C86B703120B6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MixedRealityApp1", "MixedRealityApp1\MixedRealityApp1.vcxproj", "{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -59,6 +61,16 @@ Global
 		{B7F413DE-9947-49EC-A005-C86B703120B6}.Release|x86.ActiveCfg = Release|x86
 		{B7F413DE-9947-49EC-A005-C86B703120B6}.Release|x86.Build.0 = Release|x86
 		{B7F413DE-9947-49EC-A005-C86B703120B6}.Release|x86.Deploy.0 = Release|x86
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Debug|ARM.ActiveCfg = Debug|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Debug|x64.ActiveCfg = Debug|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Debug|x86.ActiveCfg = Debug|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Debug|x86.Build.0 = Debug|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Debug|x86.Deploy.0 = Debug|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Release|ARM.ActiveCfg = Release|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Release|x64.ActiveCfg = Release|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Release|x86.ActiveCfg = Release|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Release|x86.Build.0 = Release|Win32
+		{5C18991A-ACA8-4920-BAF5-A62B6D3CB73F}.Release|x86.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

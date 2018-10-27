@@ -196,6 +196,66 @@
     <Image Include="Content\Textures\seq00002.jpg.dds">
       <Filter>Content\Textures</Filter>
     </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1070.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1072.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1079.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1081.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1088.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1090.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1097.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1099.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1106.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1108.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1115.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1117.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1124.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1126.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1133.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1135.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1142.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1144.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1151.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TiyaBirdie.fbm\1153.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\TiyaBirdie.fbx">

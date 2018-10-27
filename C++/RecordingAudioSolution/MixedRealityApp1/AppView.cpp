@@ -3,7 +3,7 @@
 
 #include <ppltasks.h>
 
-using namespace RecordingAudio;
+using namespace MixedRealityApp1;
 
 using namespace concurrency;
 using namespace Windows::ApplicationModel;
@@ -53,7 +53,7 @@ void AppView::Initialize(CoreApplicationView^ applicationView)
     // resources.
     m_deviceResources = std::make_shared<DX::DeviceResources>();
 
-    m_main = std::make_unique<RecordingAudioMain>(m_deviceResources);
+    m_main = std::make_unique<MixedRealityApp1Main>(m_deviceResources);
 }
 
 // Called when the CoreWindow object is created (or re-created).
@@ -74,7 +74,7 @@ void AppView::SetWindow(CoreWindow^ window)
     // Create a holographic space for the core window for the current view.
     // Presenting holographic frames that are created by this holographic space will put
     // the app into exclusive mode.
-    m_holographicSpace = Windows::Graphics::Holographic::HolographicSpace::CreateForCoreWindow(window);
+    m_holographicSpace = HolographicSpace::CreateForCoreWindow(window);
 
     // The DeviceResources class uses the preferred DXGI adapter ID from the holographic
     // space (when available) to create a Direct3D device. The HolographicSpace
@@ -102,7 +102,7 @@ void AppView::Run()
         {
             CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
-			Windows::Graphics::Holographic::IHolographicFrame^ holographicFrame = m_main->Update();
+            HolographicFrame^ holographicFrame = m_main->Update();
 
             if (m_main->Render(holographicFrame))
             {

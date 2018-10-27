@@ -18,48 +18,24 @@
 #include "Content\SpatialInputHandler.h"
 #endif
 
-//#include "Content\ModelRenderer.h"
-
-#include "WASAPICapture.h"
-#include <windows.graphics.h>
-#include <windows.graphics.holographic.h>
-
-#define OSC_START_X  100
-#define OSC_START_Y  100
-#define OSC_X_LENGTH 700
-#define OSC_TOTAL_HEIGHT 200
-
-using namespace ABI::Windows::Graphics;
-using namespace ABI::Windows::Graphics::Holographic;
-
 // Updates, renders, and presents holographic content using Direct3D.
-namespace RecordingAudio
+namespace MixedRealityApp1
 {
-	public enum class NotifyType
-	{
-		StatusMessage,
-		ErrorMessage
-	};
-
-    class RecordingAudioMain : public DX::IDeviceNotify
+    class MixedRealityApp1Main : public DX::IDeviceNotify
     {
-
-
     public:
-
-		
-        RecordingAudioMain(const std::shared_ptr<DX::DeviceResources>& deviceResources);
-        ~RecordingAudioMain();
+        MixedRealityApp1Main(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+        ~MixedRealityApp1Main();
 
         // Sets the holographic space. This is our closest analogue to setting a new window
         // for the app.
         void SetHolographicSpace(Windows::Graphics::Holographic::HolographicSpace^ holographicSpace);
 
         // Starts the holographic frame and updates the content.
-        Windows::Graphics::Holographic::IHolographicFrame^ Update();
+        Windows::Graphics::Holographic::HolographicFrame^ Update();
 
         // Renders holograms, including world-locked content.
-        bool Render(Windows::Graphics::Holographic::IHolographicFrame^ holographicFrame);
+        bool Render(Windows::Graphics::Holographic::HolographicFrame^ holographicFrame);
 
         // Handle saving and loading of app state owned by AppMain.
         void SaveAppState();
@@ -68,8 +44,6 @@ namespace RecordingAudio
         // IDeviceNotify
         virtual void OnDeviceLost();
         virtual void OnDeviceRestored();
-		void OnDeviceStateChange(Platform::Object^ sender, DeviceStateChangedEventArgs^ e);
-
 
     private:
         // Asynchronously creates resources for new holographic cameras.
@@ -91,22 +65,11 @@ namespace RecordingAudio
         // Clears event registration state. Used when changing to a new HolographicSpace
         // and when tearing down AppMain.
         void UnregisterHolographicEventHandlers();
-		void InitializeAudio();
-		void InitializeCapture(Platform::Object^ sender, Platform::Object^ e);
-		void StopCapture(Platform::Object^ sender, Platform::Object^ e);
-		void StartCapture(Platform::Object^ sender, Platform::Object^ e);
-		void UpdateMediaControlUI(DeviceState deviceState);
-		
-		// UI Helpers
-		void ShowStatusMessage(Platform::String^ str, NotifyType messageType);
-
 
 #ifdef DRAW_SAMPLE_CONTENT
         // Renders a colorful holographic cube that's 20 centimeters wide. This sample content
         // is used to demonstrate world-locked rendering.
         std::unique_ptr<SpinningCubeRenderer>                           m_spinningCubeRenderer;
-
-		//std::unique_ptr<ModelRenderer>                               m_modelRenderer;
 
         // Listens for the Pressed spatial input event.
         std::shared_ptr<SpatialInputHandler>                            m_spatialInputHandler;
@@ -131,22 +94,5 @@ namespace RecordingAudio
         Windows::Foundation::EventRegistrationToken                     m_cameraAddedToken;
         Windows::Foundation::EventRegistrationToken                     m_cameraRemovedToken;
         Windows::Foundation::EventRegistrationToken                     m_locatabilityChangedToken;
-	
-		Windows::UI::Core::CoreDispatcher^              m_CoreDispatcher;
-		Windows::UI::Xaml::Shapes::Polyline^            m_Oscilloscope;
-
-		Windows::Foundation::EventRegistrationToken     m_deviceStateChangeToken;
-		Windows::Foundation::EventRegistrationToken     m_plotDataReadyToken;
-
-		int                         m_DiscontinuityCount;
-		Platform::Boolean           m_IsMFLoaded;
-		Platform::Boolean           m_IsLowLatency;
-
-		DeviceStateChangedEvent^    m_StateChangedEvent;
-		ComPtr<WASAPICapture>       m_spCapture;
-		
-	public:
-		Platform::Boolean			m_showRecording;
-
     };
 }
